@@ -123,10 +123,8 @@ y_preds = torch.argmax(y_pred_probs, dim=1)
 # Plotting the results
 
 def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Tensor):
-    """Plots decision boundaries of model predicting on X in comparison to y.
+    # Plots decision boundaries of model predicting on X in comparison to y.
 
-    Source - https://madewithml.com/courses/foundations/neural-networks/ (with modifications)
-    """
     # Put everything to CPU (works better with NumPy + Matplotlib)
     model.to("cpu")
     X, y = X.to("cpu"), y.to("cpu")
