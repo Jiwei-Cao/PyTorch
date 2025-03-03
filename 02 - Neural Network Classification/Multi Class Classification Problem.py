@@ -5,6 +5,7 @@ from sklearn.datasets import make_blobs
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import numpy as np
+from torchmetrics import Accuracy
 
 # Hyperparamaters for data creation
 NUM_CLASSES = 4
@@ -113,15 +114,13 @@ for epoch in range(epochs):
 model_4.eval()
 with torch.inference_mode():
     y_logits = model_4(X_blob_test)
-
-# Go from logits to prediction probabilities
-y_pred_probs = torch.softmax(y_logits, dim=1)
+    # Go from logits to prediction probabilities
+    y_pred_probs = torch.softmax(y_logits, dim=1)
 
 # Go from pred probs to pred labels
 y_preds = torch.argmax(y_pred_probs, dim=1)
 
 # Plotting the results
-
 def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Tensor):
     # Plots decision boundaries of model predicting on X in comparison to y.
 
@@ -162,3 +161,9 @@ plot_decision_boundary(model_4, X_blob_train, y_blob_train)
 plt.subplot(1, 2, 2)
 plt.title("Test")
 plot_decision_boundary(model_4, X_blob_test, y_blob_test)
+
+# Setup metric
+torchmetric_accuracy = Accuracy(task="multiclass", num_classes=NUM_CLASSES).to(device)
+
+# Calculuate accuracy
+accuracy = torchmetric_accuracy(y_preds, y_blob_test)
