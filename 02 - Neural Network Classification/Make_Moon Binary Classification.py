@@ -72,7 +72,7 @@ optimizer = torch.optim.SGD(params=model_0.parameters(),
 
 # Calculate accuracy
 from torchmetrics import Accuracy
-acc_fn = Accuracy(task="multiclass", num_classes=2).to(device)
+acc_fn = Accuracy(task="binary", num_classes=2).to(device)
 
 torch.manual_seed(RANDOM_SEED)
 
