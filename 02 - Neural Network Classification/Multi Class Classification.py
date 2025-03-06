@@ -56,14 +56,26 @@ optimizer = torch.optim.Adam(model_1.parameters(),
 epochs = 1000
 
 for epoch in range(epochs):
-   model_1.train()
+    model_1.train()
 
-   y_logits = model_1(X_train)
-   y_pred = torch.softmax(y_logits, dim=1).argmax(dim=1)
+    y_logits = model_1(X_train)
+    y_pred = torch.softmax(y_logits, dim=1).argmax(dim=1)
 
-   loss = loss_fn(y_logits, y_train)
-   acc = acc_fn(y_pred, y_train)
+    loss = loss_fn(y_logits, y_train)
+    acc = acc_fn(y_pred, y_train)
 
-   optimizer.zero_grad()
-   loss.backward()
-   optimizer.step()
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+
+    model_1.eval()
+    with torch.inference_mode():
+        test_logits = model_1(X_test)
+        test_pred = torch.softmax(test_logits, dim=1).argmax(dim=1)
+
+        test_loss = loss_fn(test_logits, y_test)
+        test_acc = acc_fn(test_pred, y_test)
+
+    if epoch % 100 == 0:
+        print(f"Epoch: {epoch} | Loss: {loss:.2f} Acc: {acc:.2f} | Test loss: {test_loss} Test acc: {test_acc:.2f}")
+    
