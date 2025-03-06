@@ -50,7 +50,7 @@ X_train, y_train = X_train.to(device), y_train.to(device)
 X_test, y_test = X_test.to(device), y_test.to(device)
 
 loss_fn = nn.CrossEntropyLoss()
-Optimizer = torch.optim.Adam(model_1.parameters(), 
+optimizer = torch.optim.Adam(model_1.parameters(), 
                              lr = 0.02)
 
 epochs = 1000
@@ -60,3 +60,10 @@ for epoch in range(epochs):
 
    y_logits = model_1(X_train)
    y_pred = torch.softmax(y_logits, dim=1).argmax(dim=1)
+
+   loss = loss_fn(y_logits, y_train)
+   acc = acc_fn(y_pred, y_train)
+
+   optimizer.zero_grad()
+   loss.backward()
+   optimizer.step()
