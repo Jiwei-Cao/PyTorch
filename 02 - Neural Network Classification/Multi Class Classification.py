@@ -80,8 +80,6 @@ for epoch in range(epochs):
         print(f"Epoch: {epoch} | Loss: {loss:.2f} Acc: {acc:.2f} | Test loss: {test_loss} Test acc: {test_acc:.2f}")
     
 
-import numpy as np
-
 def plot_decision_boundary(model, X, y):
   
     # Put everything to CPU (works better with NumPy + Matplotlib)
@@ -119,7 +117,7 @@ def plot_decision_boundary(model, X, y):
 plt.figure(figsize=(12, 6))
 plt.subplot(1, 2, 1)
 plt.title("Train")
-plot_decision_boundary(model_0, X_train, y_train)
+plot_decision_boundary(model_1, X_train, y_train)
 plt.subplot(1, 2, 2)
 plt.title("Test")
-plot_decision_boundary(model_0, X_test, y_test)
+plot_decision_boundary(model_1, X_test, y_test)
