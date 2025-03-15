@@ -3,7 +3,7 @@ from torch import nn
 import torchvision
 from torchvision import datasets
 from torchvision import transforms
-from torchvision import ToTensor
+from torchvision.transforms import ToTensor
 import matplotlib.pyplot as plt
 
 # 1. Getting a dataset
@@ -26,3 +26,7 @@ test_data = datasets.FashionMNIST(
 class_names = train_data.classes
 # print(class_names)
 
+image, label = train_data[0]
+# print(f"Image shape: {image.shape}")
+plt.imshow(image.squeeze())
+plt.show()
