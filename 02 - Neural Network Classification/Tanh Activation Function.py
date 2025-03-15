@@ -1,5 +1,5 @@
 import torch
-import maplotlib.pylot as plt
+import matplotlib.pyplot as plt
 
 tensor_A = torch.arange(-100, 100, 1)
 plt.plot(tensor_A)
