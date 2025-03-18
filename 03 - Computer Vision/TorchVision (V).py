@@ -62,12 +62,24 @@ test_dataloader = DataLoader(dataset=test_data,
 train_features_batch, train_labels_batch = next(iter(train_dataloader))
 
 # Show a sample
-torch.manual_seed(42)
 random_idx = torch.randint(0, len(train_features_batch), size=[1]).item()
 img, label = train_features_batch[random_idx], train_labels_batch[random_idx]
 plt.imshow(img.squeeze(), cmap="gray")
 plt.title(class_names[label])
 plt.axis(False)
-print(f"Image size: {img.shape}")
-print(f"Label: {label}, label size: {label.shape}")
-plt.show()
+# print(f"Image size: {img.shape}")
+# print(f"Label: {label}, label size: {label.shape}")
+# plt.show()
+
+# Building a baseline model
+
+# Create a flatten layer
+flatten_model = nn.Flatten()
+# Get a single sample
+x = train_features_batch[0]
+# Flatten the sample
+output = flatten_model(x)
+
+# print(f"Shape before flattening: {x.shape}") [colour_channels, height, width]
+# print(f"Shape after flattening: {output.shape}") [colour_channels, height*width]
+
