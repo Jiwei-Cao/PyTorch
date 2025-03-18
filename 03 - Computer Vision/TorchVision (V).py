@@ -194,14 +194,14 @@ total_train_time_model_0 = print_train_time(train_time_start_on_cpu,
 
 torch.manual_seed(42)
 def eval_model(model: torch.nn.Module,
-               data_loader: torch.utils.data.Dataloader,
+               data_loader: torch.utils.data.DataLoader,
                loss_fn: torch.nn.Module,
                accuracy_fn):
     # Return a dictionary containing the results of model predicting on data_loader
     loss, acc = 0, 0
     model.eval()
     with torch.inference_mode():
-        for X, y in data_loader:
+        for X, y in tqdm(data_loader):
             # Make predictions
             y_pred = model(X)
 
@@ -223,3 +223,5 @@ model_0_results = eval_model(model=model_0,
                              data_loader=test_dataloader,
                              loss_fn=loss_fn,
                              accuracy_fn=accuracy_fn)
+
+print(model_0_results)
