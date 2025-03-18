@@ -46,8 +46,8 @@ for i in range(1, rows*cols+1):
     plt.axis(False)
 
 # plt.show()
-
-# Turn datasets into iterables (batches)
+ 
+# 2. turn datasets into iterables (batches)
 from torch.utils.data import DataLoader
 BATCH_SIZE = 32
 
@@ -83,7 +83,7 @@ output = flatten_model(x)
 # print(f"Shape before flattening: {x.shape}") [colour_channels, height, width]
 # print(f"Shape after flattening: {output.shape}") [colour_channels, height*width]
 
-# Creating a model
+# 3. Creating a model
 class FashionMNISTModelV0(nn.Module):
     def __init__(self,
                  input_shape: int,
