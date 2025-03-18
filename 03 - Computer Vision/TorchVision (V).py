@@ -155,4 +155,37 @@ for epoch in tqdm(range(epochs)):
         loss.backward()
         # 5. Optimizer step
         optimizer.step()
+    
+        # Print out what's happening
+        if batch % 400 == 0:
+            print(f"Looked at {batch * len(X)}/{len(train_dataloader.dataset)} samples.")
+
+    # Divide total train loss by length of train dataloader to calculate the average loss per epoch
+    train_loss /= len(train_dataloader)
+
+    # Testing
+    test_loss, test_acc = 0, 0
+    model_0.eval()
+    with torch.inference_mode():
+        for X_test, y_test in test_dataloader:
+            # 1. Forward pass
+            test_pred = model_0(X_test)
+            # 2. Calculate loss 
+            loss = loss_fn(test_pred, y_test)
+            test_loss += loss
+            # 3. Calculate accuracy
+            test_acc += accuracy_fn(y_true=y_test, y_pred=test_pred.argmax(dim=1))
+            
+        # Calculate the test loss average per batch
+        test_loss /= len(test_dataloader)
+        # Calculate the test acc average per batch
+        test_acc /= len(test_dataloader)
+
+    # Print out what's happening
+    print(f"\nTrain loss: {train_loss:.4f} | Test loss: {test_loss:.4f}, Test acc: {test_acc:.4f}")
+
+# Calculate training time
+train_time_end_on_cpu = timer()
+total_train_time_model_0 = print_train_time(train_time_start_on_cpu,
+                                            train_time_end_on_cpu)
 
