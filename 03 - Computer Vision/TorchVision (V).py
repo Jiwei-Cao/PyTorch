@@ -107,3 +107,11 @@ model_0 = FashionMNISTModelV0(
     hidden_units=10,
     output_shape=len(class_names) # one output value for every class
 )
+
+# Setup the helper function script 
+from helper_functions import accuracy_fn
+
+# Setup loss function and optimizer
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(params=model_0.parameters(),
+                            lr=0.1)
