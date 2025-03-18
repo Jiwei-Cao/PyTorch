@@ -89,7 +89,7 @@ class FashionMNISTModelV0(nn.Module):
                  input_shape: int,
                  hidden_units: int,
                  output_shape: int):
-        super().init()
+        super().__init__()
         self.layer_stack = nn.Sequential(
             nn.Flatten(),
             nn.Linear(in_features=input_shape,
@@ -109,6 +109,9 @@ model_0 = FashionMNISTModelV0(
 )
 
 # Setup the helper function script 
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from helper_functions import accuracy_fn
 
 # Setup loss function and optimizer
