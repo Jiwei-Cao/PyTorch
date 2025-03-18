@@ -121,5 +121,38 @@ from timeit import default_timer as timer
 def print_train_time(start: float,
                      end: float):
     total_time = end - start
-    print(f"Train time on {device}: {total_time:.3f} seconds")
+    print(f"Train time: {total_time:.3f} seconds")
     return total_time
+
+# Creating a training loop and training a model on batches of data
+
+# Import tqdm for progress bar
+from tqdm.auto import tqdm
+
+torch.manual_seed(42)
+train_time_start_on_cpu = timer()
+
+# Create training and testing loop
+# 1. Loop through epochs
+# 2. Loop through training batches, perform training steps, calculate the train loss per batch
+# 3. Loop through testing batches, perform testing steps, calculate the test loss per batch
+epochs = 3
+for epoch in tqdm(range(epochs)):
+    print(f"Epoch: {epoch}\n------")
+    # Training
+    train_loss = 0
+    # Add a loop to loop through the training batches
+    for batch, (X, y) in enumerate(train_dataloader):
+        model_0.train()
+        # 1. Forward pass
+        y_pred = model_0(X)
+        # 2. Calculate loss (per batch)
+        loss = loss_fn(y_pred ,y)
+        train_loss += loss
+        # 3. Optimzer zero grad
+        optimizer.zero_grad()
+        # 4. Loss backward
+        loss.backward()
+        # 5. Optimizer step
+        optimizer.step()
+
