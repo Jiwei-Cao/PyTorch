@@ -83,3 +83,27 @@ output = flatten_model(x)
 # print(f"Shape before flattening: {x.shape}") [colour_channels, height, width]
 # print(f"Shape after flattening: {output.shape}") [colour_channels, height*width]
 
+# Creating a model
+class FashionMNISTModelV0(nn.Module):
+    def __init__(self,
+                 input_shape: int,
+                 hidden_units: int,
+                 output_shape: int):
+        super().init()
+        self.layer_stack = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(in_features=input_shape,
+                      out_features=hidden_units),
+            nn.Linear(in_features=hidden_units,
+                      out_features=output_shape)
+        )
+    
+    def forward(self, x):
+        return self.layer_stack(x)
+    
+torch.manual_seed(42)
+model_0 = FashionMNISTModelV0(
+    input_shape=784, # 28*28
+    hidden_units=10,
+    output_shape=len(class_names) # one output value for every class
+)
