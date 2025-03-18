@@ -192,3 +192,34 @@ train_time_end_on_cpu = timer()
 total_train_time_model_0 = print_train_time(train_time_start_on_cpu,
                                             train_time_end_on_cpu)
 
+torch.manual_seed(42)
+def eval_model(model: torch.nn.Module,
+               data_loader: torch.utils.data.Dataloader,
+               loss_fn: torch.nn.Module,
+               accuracy_fn):
+    # Return a dictionary containing the results of model predicting on data_loader
+    loss, acc = 0, 0
+    model.eval()
+    with torch.inference_mode():
+        for X, y in data_loader:
+            # Make predictions
+            y_pred = model(X)
+
+            # Accumulate the loss and acc values per batch
+            loss += loss_fn(y_pred, y)
+            acc += accuracy_fn(y_true=y,
+                               y_pred=y_pred.argmax(dim=1))
+        
+        # Scale loss and acc fo find the average loss/acc per batch
+        loss /= len(data_loader)
+        acc /= len(data_loader)
+
+    return {"model_name": model.__class__.__name__, # only works when model was created with the class
+            "model_loss": loss.item(),
+            "model_acc": acc}
+
+# Calculate model 0 results on test dataset
+model_0_results = eval_model(model=model_0,
+                             data_loader=test_dataloader,
+                             loss_fn=loss_fn,
+                             accuracy_fn=accuracy_fn)
