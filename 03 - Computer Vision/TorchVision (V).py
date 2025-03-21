@@ -278,9 +278,9 @@ def train_step(model: torch.nn.Module,
         y_pred = model(X)
         # 2. Calculate loss (per batch)
         loss = loss_fn(y_pred ,y)
-        train_loss += loss
+        train_loss += loss.item()
         train_acc += accuracy_fn(y_true=y,
-                                 y_pred=y_pred)
+                                 y_pred=y_pred.argmax(dim=1))
         # 3. Optimzer zero grad
         optimizer.zero_grad()
         # 4. Loss backward
@@ -295,7 +295,7 @@ def train_step(model: torch.nn.Module,
     # Divide total train loss and acc by length of train dataloader to calculate the average loss per epoch
     train_loss /= len(data_loader)
     train_acc /= len(data_loader)
-    print(f"Train loss: {train_loss:.5f} | Train acc: {train_acc:.2f}%")
+    print(f"Train loss: {train_loss:.5f} | Train acc: {train_acc:.2f}%\n")
 
 # Testing function
 def test_step(model: torch.nn.Module,
@@ -320,4 +320,28 @@ def test_step(model: torch.nn.Module,
         # Adjust metrics and print out
         test_loss /= len(data_loader)
         test_acc /= len(data_loader)
-        print(f"Test lsos: {test_loss:.5f} | Test acc: {test_acc:.2f}%")
+        print(f"Test loss: {test_loss:.5f} | Test acc: {test_acc:.2f}%\n")
+
+# Create a optimisation and evaluation loop using train_step() and test_step()
+epochs = 3
+
+train_time_start_on_model1 = timer()
+
+for epoch in tqdm(range(epochs)):
+    print(f"Epoch: {epoch}\n----------")
+    train_step(model=model_1,
+               data_loader=train_dataloader,
+               loss_fn=loss_fn,
+               optimizer=optimizer,
+               accuracy_fn=accuracy_fn, 
+               device=device)
+    test_step(model=model_1,
+              data_loader=test_dataloader,
+              loss_fn=loss_fn,
+              accuracy_fn=accuracy_fn,
+              device=device)
+    
+train_time_end_on_model1 = timer()
+total_train_time_model_1 = print_train_time(start=train_time_start_on_model1,
+                                            end=train_time_end_on_model1
+                                            )
