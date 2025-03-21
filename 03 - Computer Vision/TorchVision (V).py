@@ -259,6 +259,7 @@ loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(params=model_1.parameters(),
                             lr=0.1)
 
+# Training function
 def train_step(model: torch.nn.Module,
                data_loader: torch.utils.data.DataLoader,
                loss_fn: torch.nn.Module,
@@ -295,3 +296,28 @@ def train_step(model: torch.nn.Module,
     train_loss /= len(data_loader)
     train_acc /= len(data_loader)
     print(f"Train loss: {train_loss:.5f} | Train acc: {train_acc:.2f}%")
+
+# Testing function
+def test_step(model: torch.nn.Module,
+              data_loader: torch.utils.data.DataLoader,
+              loss_fn: torch.nn.Module,
+              accuracy_fn, 
+              device: torch.device = device):
+    test_loss, test_acc = 0, 0
+    model.eval()
+    
+    with torch.inference_mode():
+        for X, y in data_loader:
+            X, y = X.to(device), y.to(device)
+
+            # 1. Forward pass
+            test_pred = model(X)
+            # 2. Calculate the loss / acc
+            test_loss += loss_fn(test_pred, y)
+            test_acc += accuracy_fn(y_true=y,
+                                 y_pred=test_pred.argmax(dim=1))
+        
+        # Adjust metrics and print out
+        test_loss /= len(data_loader)
+        test_acc /= len(data_loader)
+        print(f"Test lsos: {test_loss:.5f} | Test acc: {test_acc:.2f}%")
