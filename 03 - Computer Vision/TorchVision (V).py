@@ -254,3 +254,44 @@ model_1 = FashionMNISTModelV1(input_shape=784,
                               hidden_units=10,
                               output_shape=len(class_names)).to(device)
 
+# Setting up loss and optimiser functions
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(params=model_1.parameters(),
+                            lr=0.1)
+
+def train_step(model: torch.nn.Module,
+               data_loader: torch.utils.data.DataLoader,
+               loss_fn: torch.nn.Module,
+               optimizer: torch.optim.Optimizer,
+               accuracy_fn,
+               device : torch.device = device):
+    train_loss, train_acc = 0, 0
+
+    model.train()
+
+    # Add a loop to loop through the training batches
+    for batch, (X, y) in enumerate(data_loader):
+        X, y = X.to(device), y.to(device)
+
+        # 1. Forward pass
+        y_pred = model(X)
+        # 2. Calculate loss (per batch)
+        loss = loss_fn(y_pred ,y)
+        train_loss += loss
+        train_acc += accuracy_fn(y_true=y,
+                                 y_pred=y_pred)
+        # 3. Optimzer zero grad
+        optimizer.zero_grad()
+        # 4. Loss backward
+        loss.backward()
+        # 5. Optimizer step
+        optimizer.step()
+    
+        # Print out what's happening
+        if batch % 400 == 0:
+            print(f"Looked at {batch * len(X)}/{len(train_dataloader.dataset)} samples.")
+
+    # Divide total train loss and acc by length of train dataloader to calculate the average loss per epoch
+    train_loss /= len(data_loader)
+    train_acc /= len(data_loader)
+    print(f"Train loss: {train_loss:.5f} | Train acc: {train_acc:.2f}%")
