@@ -388,16 +388,17 @@ class FashionMNISTModelV2(nn.Module):
         )
         self.classifier = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(in_features=hidden_units*0,
+            nn.Linear(in_features=hidden_units*7*7,
                       out_features=output_shape)
         )
 
     def forward(self, x):
         x = self.conv_block_1(x)
-        print(x.shape)
+        print(f"Output shape of conv_block_1: {x.shape}")
         x = self.conv_block_2(x)
-        print(x.shape)
+        print(f"Output shape of conv_block_2: {x.shape}")
         x = self.classifier(x)
+        print(f"Output shape of classifier: {x.shape}")
         return x
 
 model_2 = FashionMNISTModelV2(input_shape=1,
