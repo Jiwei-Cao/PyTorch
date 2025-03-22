@@ -199,6 +199,7 @@ def eval_model(model: torch.nn.Module,
                loss_fn: torch.nn.Module,
                accuracy_fn):
     # Return a dictionary containing the results of model predicting on data_loader
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     loss, acc = 0, 0
     model.eval()
     with torch.inference_mode():
@@ -352,7 +353,7 @@ total_train_time_model_1 = print_train_time(start=train_time_start_on_model1,
 # 7.
 # Model 2: Building a Convolutional Neural Network (CNN)
 
-class FashionMNISTModelV2(nn.module):
+class FashionMNISTModelV2(nn.Module):
     def __init__(self, input_shape: int, hidden_units: int, output_shape: int):
         super().__init__()
         self.conv_block_1 = nn.Sequential(
@@ -402,3 +403,20 @@ class FashionMNISTModelV2(nn.module):
 model_2 = FashionMNISTModelV2(input_shape=1,
                               hidden_units=10,
                               output_shape=len(class_names)).to(device)
+
+torch.manual_seed(42)
+
+# Create a batch of images
+images = torch.rand(size=(32, 3, 64, 64))
+test_image = images[0]
+
+# Create a single conv2d layer
+conv_layer = nn.Conv2d(in_channels=3,
+                       out_channels=10,
+                       kernel_size=3,
+                       stride=1,
+                       padding=0)
+
+# Pass the data through the convolutional layer
+conv_output = conv_layer(test_image.unsqueeze(0))
+# print(conv_output.shape)
