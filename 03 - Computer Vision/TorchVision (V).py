@@ -384,7 +384,7 @@ class FashionMNISTModelV2(nn.Module):
                       stride=1,
                       padding=1),
             nn.ReLU(),
-            nn.MaxPool2d
+            nn.MaxPool2d(kernel_size=2)
         )
         self.classifier = nn.Sequential(
             nn.Flatten(),
@@ -392,17 +392,19 @@ class FashionMNISTModelV2(nn.Module):
                       out_features=output_shape)
         )
 
-        def forward(self, x):
-            x = self.conv_block_1(x)
-            print(x.shape)
-            x = self.conv_block_2(x)
-            print(x.shape)
-            x = self.classifier(x)
-            return x
+    def forward(self, x):
+        x = self.conv_block_1(x)
+        print(x.shape)
+        x = self.conv_block_2(x)
+        print(x.shape)
+        x = self.classifier(x)
+        return x
 
 model_2 = FashionMNISTModelV2(input_shape=1,
                               hidden_units=10,
                               output_shape=len(class_names)).to(device)
+
+# 7.1 Stepping through nn.Conv2d()
 
 torch.manual_seed(42)
 
@@ -420,3 +422,19 @@ conv_layer = nn.Conv2d(in_channels=3,
 # Pass the data through the convolutional layer
 conv_output = conv_layer(test_image.unsqueeze(0))
 # print(conv_output.shape)
+
+# 7.2 Stepping through nn.MaxPool2d()
+
+# print(f"Test image original shape: {test_image.shape}")
+# print(f"Test image with unsqueezed dimension: {test_image.unsqueeze(0).shape}")
+
+# Create a sample nn.MaxPool2d layer
+max_pool_layer = nn.MaxPool2d(kernel_size=2)
+
+# Pass data through just the conv_layer
+test_image_through_conv = conv_layer(test_image.unsqueeze(dim=0))
+# print(f"Shape after going through conv_layer(): {test_image_through_conv.shape}")
+
+# Pass data through the max pool layer
+test_image_through_conv_and_max_pool = max_pool_layer(test_image_through_conv)
+# print(f"(Shape after going through conv_layer() and max_pool_layer(): {test_image_through_conv_and_max_pool.shape})")
