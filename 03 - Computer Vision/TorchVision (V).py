@@ -349,6 +349,7 @@ total_train_time_model_1 = print_train_time(start=train_time_start_on_model1,
                                             end=train_time_end_on_model1
                                             )
 
+# 7.
 # Model 2: Building a Convolutional Neural Network (CNN)
 
 class FashionMNISTModelV2(nn.module):
@@ -397,3 +398,7 @@ class FashionMNISTModelV2(nn.module):
             print(x.shape)
             x = self.classifier(x)
             return x
+
+model_2 = FashionMNISTModelV2(input_shape=1,
+                              hidden_units=10,
+                              output_shape=len(class_names)).to(device)
