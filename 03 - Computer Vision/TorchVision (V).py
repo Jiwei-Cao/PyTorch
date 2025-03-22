@@ -124,7 +124,7 @@ from timeit import default_timer as timer
 def print_train_time(start: float,
                      end: float):
     total_time = end - start
-    print(f"Train time: {total_time:.3f} seconds")
+    # print(f"Train time: {total_time:.3f} seconds")
     return total_time
 
 # Creating a training loop and training a model on batches of data
@@ -141,7 +141,7 @@ train_time_start_on_cpu = timer()
 # 3. Loop through testing batches, perform testing steps, calculate the test loss per batch
 epochs = 3
 for epoch in tqdm(range(epochs)):
-    print(f"Epoch: {epoch}\n------")
+    # print(f"Epoch: {epoch}\n------")
     # Training
     train_loss = 0
     # Add a loop to loop through the training batches
@@ -161,7 +161,8 @@ for epoch in tqdm(range(epochs)):
     
         # Print out what's happening
         if batch % 400 == 0:
-            print(f"Looked at {batch * len(X)}/{len(train_dataloader.dataset)} samples.")
+            # print(f"Looked at {batch * len(X)}/{len(train_dataloader.dataset)} samples.")
+            break
 
     # Divide total train loss by length of train dataloader to calculate the average loss per epoch
     train_loss /= len(train_dataloader)
@@ -185,7 +186,7 @@ for epoch in tqdm(range(epochs)):
         test_acc /= len(test_dataloader)
 
     # Print out what's happening
-    print(f"\nTrain loss: {train_loss:.4f} | Test loss: {test_loss:.4f}, Test acc: {test_acc:.4f}")
+    # print(f"\nTrain loss: {train_loss:.4f} | Test loss: {test_loss:.4f}, Test acc: {test_acc:.4f}")
 
 # Calculate training time
 train_time_end_on_cpu = timer()
@@ -202,6 +203,7 @@ def eval_model(model: torch.nn.Module,
     model.eval()
     with torch.inference_mode():
         for X, y in tqdm(data_loader):
+            X, y = X.to(device), y.to(device)
             # Make predictions
             y_pred = model(X)
 
@@ -290,12 +292,13 @@ def train_step(model: torch.nn.Module,
     
         # Print out what's happening
         if batch % 400 == 0:
-            print(f"Looked at {batch * len(X)}/{len(train_dataloader.dataset)} samples.")
+            # print(f"Looked at {batch * len(X)}/{len(train_dataloader.dataset)} samples.")
+            break
 
     # Divide total train loss and acc by length of train dataloader to calculate the average loss per epoch
     train_loss /= len(data_loader)
     train_acc /= len(data_loader)
-    print(f"Train loss: {train_loss:.5f} | Train acc: {train_acc:.2f}%\n")
+    # print(f"Train loss: {train_loss:.5f} | Train acc: {train_acc:.2f}%\n")
 
 # Testing function
 def test_step(model: torch.nn.Module,
@@ -320,7 +323,7 @@ def test_step(model: torch.nn.Module,
         # Adjust metrics and print out
         test_loss /= len(data_loader)
         test_acc /= len(data_loader)
-        print(f"Test loss: {test_loss:.5f} | Test acc: {test_acc:.2f}%\n")
+        # print(f"Test loss: {test_loss:.5f} | Test acc: {test_acc:.2f}%\n")
 
 # Create a optimisation and evaluation loop using train_step() and test_step()
 epochs = 3
@@ -328,7 +331,7 @@ epochs = 3
 train_time_start_on_model1 = timer()
 
 for epoch in tqdm(range(epochs)):
-    print(f"Epoch: {epoch}\n----------")
+    # print(f"Epoch: {epoch}\n----------")
     train_step(model=model_1,
                data_loader=train_dataloader,
                loss_fn=loss_fn,
@@ -345,3 +348,4 @@ train_time_end_on_model1 = timer()
 total_train_time_model_1 = print_train_time(start=train_time_start_on_model1,
                                             end=train_time_end_on_model1
                                             )
+
