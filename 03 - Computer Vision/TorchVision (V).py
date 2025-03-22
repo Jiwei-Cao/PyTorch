@@ -384,3 +384,16 @@ class FashionMNISTModelV2(nn.module):
             nn.ReLU(),
             nn.MaxPool2d
         )
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(in_features=hidden_units*0,
+                      out_features=output_shape)
+        )
+
+        def forward(self, x):
+            x = self.conv_block_1(x)
+            print(x.shape)
+            x = self.conv_block_2(x)
+            print(x.shape)
+            x = self.classifier(x)
+            return x
