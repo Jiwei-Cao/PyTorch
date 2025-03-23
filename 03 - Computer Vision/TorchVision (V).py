@@ -444,3 +444,19 @@ test_image_through_conv_and_max_pool = max_pool_layer(test_image_through_conv)
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(params=model_2.parameters(),
                             lr=0.1)
+
+# 7.4 Training and testing the model
+torch.manual_seed(42)
+torch.cuda.manual_seed(42)
+
+train_time_start_model_2 = timer()
+
+epochs = 3
+for epoch in tqdm(range(epochs)):
+    print(f"Epoch: {epoch}\n-------")
+    train_step(model=model_2,
+               data_loader=train_dataloader,
+               loss_fn=loss_fn,
+               optimizer=optimizer,
+               accuracy_fn=accuracy_fn,
+               device=device)
