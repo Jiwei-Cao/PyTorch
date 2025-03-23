@@ -162,7 +162,7 @@ for epoch in tqdm(range(epochs)):
         # Print out what's happening
         if batch % 400 == 0:
             # print(f"Looked at {batch * len(X)}/{len(train_dataloader.dataset)} samples.")
-            break
+            print()
 
     # Divide total train loss by length of train dataloader to calculate the average loss per epoch
     train_loss /= len(train_dataloader)
@@ -246,7 +246,6 @@ class FashionMNISTModelV1(nn.Module):
             nn.ReLU(),
             nn.Linear(in_features=hidden_units,
                       out_features=output_shape),
-            nn.ReLU()
         )
 
     def forward(self, x: torch.Tensor):
@@ -294,7 +293,7 @@ def train_step(model: torch.nn.Module,
         # Print out what's happening
         if batch % 400 == 0:
             # print(f"Looked at {batch * len(X)}/{len(train_dataloader.dataset)} samples.")
-            break
+            print()
 
     # Divide total train loss and acc by length of train dataloader to calculate the average loss per epoch
     train_loss /= len(data_loader)
@@ -470,6 +469,11 @@ train_time_end_model_2 = timer()
 total_train_time_model_2 = print_train_time(start=train_time_start_model_2,
                                             end=train_time_end_model_2)
 
+model_1_results = eval_model(model=model_1,
+                             data_loader=test_dataloader,
+                             loss_fn=loss_fn,
+                             accuracy_fn=accuracy_fn)
+
 model_2_results = eval_model(
     model=model_2,
     data_loader=test_dataloader,
@@ -479,4 +483,12 @@ model_2_results = eval_model(
 
 # print(model_0_results)
 # print(model_2_results)
+
+# 8. Compare model results
+import pandas as pd
+compare_results = pd.DataFrame([model_0_results,
+                                model_1_results,
+                                model_2_results])
+print(compare_results)
+
 
