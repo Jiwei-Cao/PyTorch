@@ -124,7 +124,7 @@ from timeit import default_timer as timer
 def print_train_time(start: float,
                      end: float):
     total_time = end - start
-    # print(f"Train time: {total_time:.3f} seconds")
+    print(f"Train time: {total_time:.3f} seconds")
     return total_time
 
 # Creating a training loop and training a model on batches of data
@@ -190,8 +190,8 @@ for epoch in tqdm(range(epochs)):
 
 # Calculate training time
 train_time_end_on_cpu = timer()
-total_train_time_model_0 = print_train_time(train_time_start_on_cpu,
-                                            train_time_end_on_cpu)
+# total_train_time_model_0 = print_train_time(train_time_start_on_cpu,
+#                                             train_time_end_on_cpu)
 
 torch.manual_seed(42)
 def eval_model(model: torch.nn.Module,
@@ -346,9 +346,9 @@ for epoch in tqdm(range(epochs)):
               device=device)
     
 train_time_end_on_model1 = timer()
-total_train_time_model_1 = print_train_time(start=train_time_start_on_model1,
-                                            end=train_time_end_on_model1
-                                            )
+# total_train_time_model_1 = print_train_time(start=train_time_start_on_model1,
+#                                             end=train_time_end_on_model1
+#                                             )
 
 # 7.
 # Model 2: Building a Convolutional Neural Network (CNN)
@@ -394,11 +394,11 @@ class FashionMNISTModelV2(nn.Module):
 
     def forward(self, x):
         x = self.conv_block_1(x)
-        print(f"Output shape of conv_block_1: {x.shape}")
+        # print(f"Output shape of conv_block_1: {x.shape}")
         x = self.conv_block_2(x)
-        print(f"Output shape of conv_block_2: {x.shape}")
+        # print(f"Output shape of conv_block_2: {x.shape}")
         x = self.classifier(x)
-        print(f"Output shape of classifier: {x.shape}")
+        # print(f"Output shape of classifier: {x.shape}")
         return x
 
 model_2 = FashionMNISTModelV2(input_shape=1,
@@ -465,3 +465,18 @@ for epoch in tqdm(range(epochs)):
               loss_fn=loss_fn,
               accuracy_fn=accuracy_fn,
               device=device)
+
+train_time_end_model_2 = timer()
+total_train_time_model_2 = print_train_time(start=train_time_start_model_2,
+                                            end=train_time_end_model_2)
+
+model_2_results = eval_model(
+    model=model_2,
+    data_loader=test_dataloader,
+    loss_fn=loss_fn,
+    accuracy_fn=accuracy_fn,
+)
+
+# print(model_0_results)
+# print(model_2_results)
+
