@@ -496,3 +496,35 @@ compare_results.set_index("model_name")["model_acc"].plt(kind="barh")
 plt.xlabel("accuracy (%)")
 plt.ylabel("model")
 # plt.show()
+
+# 9. Make and evaluate random predictions with the best model
+def make_predictions(model: torch.nn.Module,
+                     data: list,
+                     device: torch.device = device):
+    pred_probs = []
+    model.to(device)
+    model.eval()
+    with torch.inference_mode():
+        for sample in data:
+            # Prepare the sample (add a batch dimension and pass to target device)
+            sample = torch.unsqueeze(sample, dim=0).to(device)
+
+            # Forward pass (model outputs raw logits)
+            pred_logit = model(sample)
+
+            # Get prediction probabilities
+            pred_prob = torch.softmax(pred_logit.squeeze(), dim=0)
+
+            pred_probs.append(pred_prob.cpu())
+     
+    # Stack the pred_probs to turn list into a tensor
+    return torch.stack(pred_probs)
+
+import random
+random.seed(42)
+test_samples = []
+test_labels = []
+for sample, label in random.sample(list(test_data, k=9)):
+    test_samples.append(sample)
+    test_labels.append(label)
+
