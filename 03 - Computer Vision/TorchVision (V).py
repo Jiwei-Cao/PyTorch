@@ -491,4 +491,8 @@ compare_results = pd.DataFrame([model_0_results,
                                 model_2_results])
 print(compare_results)
 
-
+# Visualizing model results
+compare_results.set_index("model_name")["model_acc"].plt(kind="barh")
+plt.xlabel("accuracy (%)")
+plt.ylabel("model")
+# plt.show()
