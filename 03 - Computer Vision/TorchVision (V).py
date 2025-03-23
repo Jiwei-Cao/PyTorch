@@ -460,3 +460,8 @@ for epoch in tqdm(range(epochs)):
                optimizer=optimizer,
                accuracy_fn=accuracy_fn,
                device=device)
+    test_step(model=model_2,
+              data_loader=test_dataloader,
+              loss_fn=loss_fn,
+              accuracy_fn=accuracy_fn,
+              device=device)
