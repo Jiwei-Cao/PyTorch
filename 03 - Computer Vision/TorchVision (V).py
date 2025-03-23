@@ -563,3 +563,24 @@ for i, sample in enumerate(test_samples):
 
 plt.axis(False)
 # plt.show()
+
+# 10. Making a confusion matrix for further prediction evaluation
+
+# 1. Make predictions with trained model
+y_preds = []
+model_2.eval()
+with torch.inference_mode():
+    for X, y in tqdm(test_dataloader, desc="Making predictions..."):
+        X, y = X.to(device), y.to(device)
+        
+        # Do the forward pass
+        y_logit = model_2(X)
+        # Turn predictions from logits -> prediction probabilities -> prediction labels
+        y_pred = torch.softmax(y_logit.squeeze(), dim=0).argmax(dim=1)
+        # Put prediction on CPU for evaluation
+        y_preds.append(y_pred.cpu())
+
+# Concatenate list of predictions into a tensor
+# print(y_preds)
+y_pred_tensor = torch.cat(y_preds)
+# print(y_pred_tensor[10])
