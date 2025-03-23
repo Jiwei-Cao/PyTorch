@@ -439,3 +439,8 @@ test_image_through_conv = conv_layer(test_image.unsqueeze(dim=0))
 # Pass data through the max pool layer
 test_image_through_conv_and_max_pool = max_pool_layer(test_image_through_conv)
 # print(f"(Shape after going through conv_layer() and max_pool_layer(): {test_image_through_conv_and_max_pool.shape})")
+
+# 7.3 Set up a loss function and optimizer
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(params=model_2.parameters(),
+                            lr=0.1)
