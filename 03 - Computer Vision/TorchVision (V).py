@@ -528,3 +528,38 @@ for sample, label in random.sample(list(test_data, k=9)):
     test_samples.append(sample)
     test_labels.append(label)
 
+# Make predictions
+pred_probs = make_predictions(model=model_2,
+                              data=test_samples)
+# print(pred_probs)
+pred_classes = pred_probs.argmax(dim=1)
+# print(pred_classes)
+
+# Plot Predictions
+plt.figure(figsize=(9, 9))
+nrows = 3
+ncols = 3
+for i, sample in enumerate(test_samples):
+    # Create subplot
+    plt.subplot(nrows, ncols, i+1)
+
+    # Plot the target image
+    plt.imshow(sample.squeeze(), cmap="gray")
+
+    # Find the prediction in text form (e.g. sandal)
+    pred_label = class_names[pred_classes[i]]
+
+    # Get the truth label in text form
+    truth_label = class_names[test_labels[i]]
+
+    # Create a title for the plot
+    title_text = f"Pred: {pred_label} | Truth: {truth_label}"
+
+    # Check for equality between pred and truth and change colors of title text
+    if pred_label == truth_label:
+        plt.title(title_text, fontsize=10, c="g") # Green text if predictions same as truth
+    else:
+        plt.title(title_text, fontsize=10, c="r")
+
+plt.axis(False)
+# plt.show()
