@@ -600,3 +600,18 @@ fig, ax = plot_confusion_matrix(
     class_names=class_names,
     figsize=(10, 7)
 )
+
+# 11. Save and load best performing model
+from pathlib import Path
+
+# Create model directory path
+MODEL_PATH = Path("models")
+MODEL_PATH.mkir(parents=True,
+                exist_ok=True)
+
+# Create model save
+MODEL_NAME = "Computer_vision_model_2.pth"
+MODEL_SAVE_PATH = MODEL_PATH / MODEL_NAME
+
+torch.save(obj=model_2.state_dict(),
+           f=MODEL_SAVE_PATH)
