@@ -3,6 +3,7 @@ import torchvision
 from torchvision import datasets
 from torchvision import transforms
 import matplotlib.pyplot as plt
+from torch.utils.data import DataLoader
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -31,3 +32,12 @@ for i in range(5):
     plt.imshow(img_squeeze, cmap="gray")
     plt.title(label)
     plt.axis(False)
+
+# Create train dataloader (use a dataloader to split dataset into mini-batches for training)
+train_dataloader = DataLoader(dataset=train_data,
+                              batch_size=32,
+                              shuffle=True)
+
+test_dataloader = DataLoader(dataset=test_data,
+                             batch_size=32,
+                             shuffle=False)
