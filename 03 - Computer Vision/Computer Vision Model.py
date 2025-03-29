@@ -89,3 +89,7 @@ class MNIST_model(torch.nn.Module):
             x = self.conv_block_2(x)
             x = self.classifier(x)
             return x
+        
+model = MNIST_model(input_shape=1,
+                    hidden_units=10,
+                    output_shape=10).to(device)
