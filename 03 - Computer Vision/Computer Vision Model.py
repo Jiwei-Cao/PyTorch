@@ -85,18 +85,18 @@ class MNIST_model(torch.nn.Module):
                       out_features=output_shape)
         )
 
-        def forward(self, x):
-            x = self.conv_block_1(x)
-            x = self.conv_block_2(x)
-            x = self.classifier(x)
-            return x
+    def forward(self, x):
+        x = self.conv_block_1(x)
+        x = self.conv_block_2(x)
+        x = self.classifier(x)
+        return x
         
 model = MNIST_model(input_shape=1,
                     hidden_units=10,
                     output_shape=10).to(device)
 
 # Training the model
-loss_fn = nn.CrossEntropyLoss
+loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
 
 # Training loop
@@ -115,7 +115,7 @@ for epoch in tqdm(range(epochs)):
         train_loss += loss
 
         # Optimizer zero grad
-        optimizer.zero_grad
+        optimizer.zero_grad()
 
         # Loss backward
         loss.backward()
@@ -142,3 +142,28 @@ for epoch in tqdm(range(epochs)):
         test_loss_total /= len(test_dataloader)
     
     print(f"Epoch: {epoch} | Loss: {train_loss:.3f} | Test loss: {test_loss_total:.3f}")
+
+# Making predictions with the trained model and visualising them
+plt.imshow(test_data[0][0].squeeze(), cmap="gray")
+# Logits -> Prediction probabilities -> Prediction labels
+model_pred_logits = model(test_data[0][0].unsqueeze(dim=0).to(device))
+model_pred_probs = torch.softmax(model_pred_logits, dim=1)
+model_pred_label = torch.argmax(model_pred_probs, dim=1)
+print(model_pred_label)
+
+num_to_plot = 5
+for i in range(num_to_plot):
+    # Get image and labels from the test data
+    img = test_data[i][0]
+    label = test_data[i][1]
+
+    # Make prediction on image
+    model_pred_logits = model(img.unsqueeze(dim=0).to(device))
+    model_pred_probs = torch.softmax(model_pred_logits, dim=1)
+    model_pred_label = torch.argmax(model_pred_probs, dim=1)
+
+    # Plot the image and prediction
+    plt.figure()
+    plt.imshow(img.squeeze(), cmap="gray")
+    plt.title(f"Truth: {label} | Pred: {model_pred_label.cpu().item()}")
+    plt.axis(False)
