@@ -6,6 +6,9 @@ from torchvision import transforms
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
+import torchmetrics, mlxtend
+from torchmetrics import ConfusionMatrix
+from mlxtend.plotting import plot_confusion_matrix
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -167,3 +170,34 @@ for i in range(num_to_plot):
     plt.imshow(img.squeeze(), cmap="gray")
     plt.title(f"Truth: {label} | Pred: {model_pred_label.cpu().item()}")
     plt.axis(False)
+
+# Plot a confusion matrix comparing model's predictions to truth labels
+# Make predictions across all test data
+model.eval()
+y_preds = []
+with torch.inference_mode():
+    for batch, (X, y) in tqdm(enumerate(test_dataloader)):
+        X, y = X.to(device), y.to(device)
+        
+        # Forward pass
+        y_pred_logits = model(X)
+        
+        # Logits -> Pred probs -> Pred label
+        y_pred_labels = torch.argmax(torch.softmax(y_pred_logits, dim=1), dim=1)
+
+        # Append the labels to the preds list
+        y_preds.append(y_pred_labels)
+    
+    y_preds = torch.cat(y_preds).cpu()
+
+# Setup confusion matrix
+confmat = ConfusionMatrix(task="multiclass", num_classes=len(class_names))
+confmat_tensor = confmat(preds=y_preds,
+                         target=test_data.targets)
+
+# Plot the confusion matrix
+plot_confusion_matrix(
+    conf_mat=confmat_tensor.numpy(),
+    class_names=class_names,
+    figsize=(10, 7)
+) 
