@@ -5,17 +5,20 @@ from torchvision import transforms
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 from torchmetrics import Accuracy
+import numpy as np
+import random
+import matplotlib.pyplot as plt
 
 # Download FashionMNIST train and test datasets
 fashion_mnist_train = datasets.FashionMNIST(root=".",
                                           download=True,
                                           train=True,
-                                          transforms=transforms.ToTensor())
+                                          transform=transforms.ToTensor())
 
 fashion_mnist_test = datasets.FashionMNIST(root=".",
                                            download=True,
                                            train=False,
-                                           transforms=transforms.ToTensor())
+                                           transform=transforms.ToTensor())
 
 fashion_mnist_class_names = fashion_mnist_train.classes
 
@@ -83,7 +86,7 @@ model = MNIST_model(input_shape=1,
                     output_shape=10).to(device)
 
 # Setup loss and optimizer
-loss_fn = nn.CrossEntropLoss()
+loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 acc_fn = Accuracy(task = "multiclass", num_classes=len(fashion_mnist_class_names)).to(device)
@@ -131,4 +134,32 @@ for epoch in tqdm(range(epochs)):
         test_acc /= len(fashion_mnist_test_dataloader)
     
     print(f"Epoch: {epoch} | Train loss: {train_loss:.3f} | Train acc: {train_acc:.2f} | Test loss: {test_loss_total:.3f} | Test acc: {test_acc:.2f}")
-    
+
+# Make predictions with the trained model
+test_preds = []
+model.eval()
+with torch.inference_mode():
+    for X_test, y_test in tqdm(fashion_mnist_test_dataloader):
+        y_logits = model(X_test.to(device))
+        y_pred_probs = torch.softmax(y_logits, dim=1)
+        y_pred_labels = torch.argmax(y_pred_probs, dim=1)
+        test_preds.append(y_pred_labels)
+test_preds = torch.cat(test_preds).cpu()
+
+# Get wrong prediction indexes
+wrong_pred_indexes = np.where(test_preds != fashion_mnist_test.targets)[0]
+
+# Select 9 random wrong predictions and plot them
+random_selection = random.sample(list(wrong_pred_indexes), k=9)
+
+plt.figure(figsize=(10, 10))
+for i, idx in enumerate(random_selection):
+    # Get true and pred labels
+    true_label = fashion_mnist_class_names[fashion_mnist_test[idx][1]]
+    pred_label = fashion_mnist_class_names[test_preds[idx]]
+
+    # Plot the wrong prediction with its original label
+    plt.subplot(3,3, i+1)
+    plt.imshow(fashion_mnist_test[idx][0].squeeze(), cmap="gray")
+    plt.title(f"True: {true_label} | Pred: {pred_label}", c="r")
+    plt.axis=False
