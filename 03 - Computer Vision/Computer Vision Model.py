@@ -5,6 +5,7 @@ from torchvision import datasets
 from torchvision import transforms
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
+from tqdm.auto import tqdm
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -93,3 +94,51 @@ class MNIST_model(torch.nn.Module):
 model = MNIST_model(input_shape=1,
                     hidden_units=10,
                     output_shape=10).to(device)
+
+# Training the model
+loss_fn = nn.CrossEntropyLoss
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+
+# Training loop
+epochs = 5
+for epoch in tqdm(range(epochs)):
+    train_loss = 0
+    model.train()
+    for batch, (X, y) in enumerate(train_dataloader): 
+        X, y = X.to(device), y.to(device)
+
+        # Forward pass
+        y_pred = model(X)
+
+        # Loss calculation
+        loss = loss_fn(y_pred, y)
+        train_loss += loss
+
+        # Optimizer zero grad
+        optimizer.zero_grad
+
+        # Loss backward
+        loss.backward()
+
+        # Step the optimizer
+        optimizer.step()
+    
+    # Adjust train loss to number of batches
+    train_loss /= len(train_dataloader)
+
+    # Testing loop
+    test_loss_total = 0
+    model.eval()
+    with torch.inference_mode():
+        for batch, (X_test, y_test) in enumerate(test_dataloader):
+            X_test, y_test = X_test.to(device), y_test.to(device)
+
+            test_pred = model(X_test)
+            test_loss = loss_fn(test_pred, y_test)
+
+            test_loss_total += test_loss
+
+        # Adjust test loss total for number of batches
+        test_loss_total /= len(test_dataloader)
+    
+    print(f"Epoch: {epoch} | Loss: {train_loss:.3f} | Test loss: {test_loss_total:.3f}")
