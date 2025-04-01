@@ -615,3 +615,4 @@ MODEL_SAVE_PATH = MODEL_PATH / MODEL_NAME
 
 torch.save(obj=model_2.state_dict(),
            f=MODEL_SAVE_PATH)
+
