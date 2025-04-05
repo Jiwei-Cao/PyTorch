@@ -30,3 +30,27 @@ with open(data_path / "pizza_steak_sushi.zip", "wb") as f:
 # Unzip pizza, steak and sushi data
 with zipfile.ZipFile(data_path / "pizza_steak_sushi.zip", "r") as zip_ref:
   zip_ref.extractall(image_path)
+
+# 2. Setting up data
+train_dir = image_path / "train"
+test_dir = image_path / "test"
+
+# Visualise an image
+# 1. Get all image paths
+image_path_list = list(image_path.glob("*/*/*.jpg"))
+
+# 2. Get random image path
+random_image_path = random.choice(image_path_list)
+
+# 3. Get image class from path name
+image_class = random_image_path.parent.stem
+
+# 4. Open image
+img = Image.open(random_image_path)
+
+# Print metadata
+# print(f"Random image path: {random_image_path}")
+# print(f"Image class: {image_class}")
+# print(f"Image height: {img.height}")
+# print(f"Image width: {img.width}")
+# img
