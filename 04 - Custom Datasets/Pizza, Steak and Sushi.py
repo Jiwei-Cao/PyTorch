@@ -72,3 +72,27 @@ data_transform = transforms.Compose([
     transforms.RandomHorizontalFlip(p=0.5),
     transforms.ToTensor()
 ])
+
+# Function to plot transformed images
+def plot_transformed_images(image_paths, transform, n=3):
+  """Plots a series of random images from image_paths."""
+  random_image_paths = random.sample(image_paths, k=n)
+  for image_path in random_image_paths:
+    with Image.open(image_path) as f:
+      fig, ax = plt.subplots(nrows=1, ncols=2)
+      ax[0].imshow(f)
+      ax[0].set_title(f"Original \nsize: {f.size}")
+      ax[0].axis("off")
+
+      # Transform and plot image
+      # Permute() the image to make sure it's compatible with matplotlib
+      transformed_image = transform(f).permute(1, 2, 0)
+      ax[1].imshow(transformed_image)
+      ax[1].set_title(f"Transformed \nsize: {transformed_image.shape}")
+      ax[1].axis("off")
+
+      fig.suptitle(f"Class: {image_path.parent.stem}", fontsize=16)
+
+# plot_transformed_images(image_path_list,
+#                         transform=data_transform,
+#                         n=3)
