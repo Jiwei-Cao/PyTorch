@@ -64,3 +64,11 @@ img_as_array = np.asarray(img)
 # plt.imshow(img_as_array)
 # plt.title(f"Image class: {image_class} | Image shape: {img_as_array.shape} -> [height, width, color_channels]")
 # plt.axis(False)
+
+# 3.1 Transforming data with torchvision.transforms
+# Write transform for turning images into tensors
+data_transform = transforms.Compose([
+    transforms.Resize(size=(64, 64)),
+    transforms.RandomHorizontalFlip(p=0.5),
+    transforms.ToTensor()
+])
