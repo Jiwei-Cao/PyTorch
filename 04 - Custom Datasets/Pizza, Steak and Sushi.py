@@ -110,3 +110,18 @@ test_data = datasets.ImageFolder(root=test_dir,
 class_names = train_data.classes
 class_dict = train_data.class_to_idx
 # len(train_data), len(test_data)
+
+# Turn train and test datasets into dataloaders
+BATCH_SIZE = 1
+
+train_dataloader = DataLoader(dataset=train_data,
+                              batch_size=BATCH_SIZE,
+                              num_workers=os.cpu_count(),
+                              shuffle=True)
+
+test_dataloader = DataLoader(dataset=test_data,
+                             batch_size=BATCH_SIZE,
+                             num_workers=os.cpu_count(),
+                             shuffle=False)
+
+img, label = next(iter(train_dataloader))
