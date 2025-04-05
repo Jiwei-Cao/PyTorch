@@ -96,3 +96,17 @@ def plot_transformed_images(image_paths, transform, n=3):
 # plot_transformed_images(image_path_list,
 #                         transform=data_transform,
 #                         n=3)
+
+# Load image data using image folder
+train_data = datasets.ImageFolder(root=train_dir,
+                                  transform=data_transform,
+                                  target_transform=None)
+
+test_data = datasets.ImageFolder(root=test_dir,
+                                  transform=data_transform,
+                                  target_transform=None)
+
+# Get class names as a list and dict
+class_names = train_data.classes
+class_dict = train_data.class_to_idx
+# len(train_data), len(test_data)
