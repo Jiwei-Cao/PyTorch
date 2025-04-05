@@ -278,3 +278,17 @@ def train(model: torch.nn.Module,
 
   # Return the results dictionary
   return results
+
+# Train the model
+model_0 = TinyVGG(input_shape=3,
+                  hidden_units=20,
+                  output_shape=len(class_names)).to(device)
+
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model_0.parameters(), lr =0.001)
+
+model_0_results = train(model=model_0,
+                        train_dataloader=train_dataloader,
+                        test_dataloader=test_dataloader,
+                        optimizer=optimizer,
+                        epochs=20)
