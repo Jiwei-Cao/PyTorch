@@ -207,3 +207,33 @@ def train_step(model: torch.nn.Module,
   train_loss = train_loss / len(dataloader)
   train_acc = train_acc / len(dataloader)
   return train_loss, train_acc
+
+def test_step(model: torch.nn.Module,
+              dataloader: torch.utils.data.DataLoader,
+              loss_fn: torch.nn.Module):
+
+  model.eval()
+
+  test_loss, test_acc = 0, 0
+
+  with torch.inference_mode():
+    # Loop through dataloader and data batches
+    for batch, (X, y) in enumerate(dataloader):
+      X, y = X.to(device), y.to(device)
+
+      # 1. Forward pass
+      test_pred_logits = model(X)
+      # print(test_pred_logits)
+
+      # 2. Calculuate and accumulate loss
+      loss = loss_fn(test_pred_logits, y)
+      test_loss += loss.item()
+
+      # Calculate and accumulate accuracy
+      test_pred_labels = test_pred_logits.argmax(dim=1)
+      test_acc += ((test_pred_labels == y).sum().item()/len(test_pred_labels))
+
+  # Adjust metrics to get average loss and accuracy per batch
+  test_loss = test_loss / len(dataloader)
+  test_acc = test_acc / len(dataloader)
+  return test_loss, test_acc
