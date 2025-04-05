@@ -54,3 +54,13 @@ img = Image.open(random_image_path)
 # print(f"Image height: {img.height}")
 # print(f"Image width: {img.width}")
 # img
+
+# Visualise an image with matplotlib
+# 1. Turn the image into an array
+img_as_array = np.asarray(img)
+
+# 2. Plot the image
+# plt.figure(figsize=(10, 7))
+# plt.imshow(img_as_array)
+# plt.title(f"Image class: {image_class} | Image shape: {img_as_array.shape} -> [height, width, color_channels]")
+# plt.axis(False)
