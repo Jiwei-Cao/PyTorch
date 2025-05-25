@@ -585,3 +585,34 @@ with torch.inference_mode():
 y_pred_tensor = torch.cat(y_preds)
 print(y_pred_tensor[10])
 
+import torchmetrics, mlxtend
+from torchmetrics import ConfusionMatrix
+from mlxtend.plotting import plot_confusion_matrix
+
+ # 2. Setup foncusion instance and compare predictions to targets
+confmat = ConfusionMatrix(num_classes=len(class_names))
+confmat_tensor = confmat(preds=y_pred_tensor,
+                         target=test_data.targets)
+
+# 3. Plot the confusion matrix
+fig, ax = plot_confusion_matrix(
+    conf_mat=confmat_tensor.numpy(), # matplotlib likes working with numpy
+    class_names=class_names,
+    figsize=(10, 7)
+)
+
+# 11. Save and load best performing model
+from pathlib import Path
+
+# Create model directory path
+MODEL_PATH = Path("models")
+MODEL_PATH.mkir(parents=True,
+                exist_ok=True)
+
+# Create model save
+MODEL_NAME = "Computer_vision_model_2.pth"
+MODEL_SAVE_PATH = MODEL_PATH / MODEL_NAME
+
+torch.save(obj=model_2.state_dict(),
+           f=MODEL_SAVE_PATH)
+
