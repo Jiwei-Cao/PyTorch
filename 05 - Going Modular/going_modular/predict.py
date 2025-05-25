@@ -33,7 +33,7 @@ print(f"[INFO] Predicting on {IMG_PATH}")
 def load_model(filepath=args.model_path):
   # Need to use same hyperparameters as saved model 
   model = model_builder.TinyVGG(input_shape=3,
-                                hidden_units=128,
+                                hidden_units=10,
                                 output_shape=3).to(device)
 
   print(f"[INFO] Loading in model from: {filepath}")
