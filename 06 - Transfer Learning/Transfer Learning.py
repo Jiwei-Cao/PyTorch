@@ -17,7 +17,7 @@ try:
     from torchinfo import summary
 except:
     print("[INFO] Couldn't find torchinfo... installing it.")
-    !pip install -q torchinfo
+    # !pip install -q torchinfo
     from torchinfo import summary
 
 # Try to import the going_modular directory, download it from GitHub if it doesn't work
@@ -26,7 +26,7 @@ try:
 except:
     # Get the going_modular scripts
     print("[INFO] Couldn't find going_modular scripts... downloading them from GitHub.")
-    !git clone https://github.com/mrdbourke/pytorch-deep-learning
-    !mv pytorch-deep-learning/going_modular .
-    !rm -rf pytorch-deep-learning
+    # !git clone https://github.com/mrdbourke/pytorch-deep-learning
+    # !mv pytorch-deep-learning/going_modular .
+    # !rm -rf pytorch-deep-learning
     from going_modular.going_modular import data_setup, engine
