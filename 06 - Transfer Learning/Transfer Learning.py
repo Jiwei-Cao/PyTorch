@@ -30,3 +30,6 @@ except:
     # !mv pytorch-deep-learning/going_modular .
     # !rm -rf pytorch-deep-learning
     from going_modular.going_modular import data_setup, engine
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+device
