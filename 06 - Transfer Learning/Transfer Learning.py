@@ -26,7 +26,7 @@ try:
 except:
     # Get the going_modular scripts
     print("[INFO] Couldn't find going_modular scripts... downloading them from GitHub.")
-    # !git clone https://github.com/mrdbourke/pytorch-deep-learning
+    # !git clone https://github.com/Jiwei-Cao/PyTorch
     # !mv pytorch-deep-learning/going_modular .
     # !rm -rf pytorch-deep-learning
     from going_modular.going_modular import data_setup, engine
