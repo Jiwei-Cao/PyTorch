@@ -1,8 +1,3 @@
-"""
-A series of helper functions used throughout the course.
-
-If a function gets defined once and could be used over and over, it'll go in here.
-"""
 import torch
 import matplotlib.pyplot as plt
 import numpy as np
@@ -36,9 +31,8 @@ def walk_through_dir(dir_path):
         print(f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'.")
 
 def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Tensor):
-    """Plots decision boundaries of model predicting on X in comparison to y.
-
-    Source - https://madewithml.com/courses/foundations/neural-networks/ (with modifications)
+    """
+    Plots decision boundaries of model predicting on X in comparison to y.
     """
     # Put everything to CPU (works better with NumPy + Matplotlib)
     model.to("cpu")
@@ -76,8 +70,8 @@ def plot_predictions(
     train_data, train_labels, test_data, test_labels, predictions=None
 ):
     """
-  Plots linear training data and test data and compares predictions.
-  """
+    Plots linear training data and test data and compares predictions.
+    """
     plt.figure(figsize=(10, 7))
 
     # Plot training data in blue
@@ -163,9 +157,6 @@ def plot_loss_curves(results):
     plt.xlabel("Epochs")
     plt.legend()
 
-
-# Pred and plot image function from notebook 04
-# See creation: https://www.learnpytorch.io/04_pytorch_custom_datasets/#113-putting-custom-image-prediction-together-building-a-function
 from typing import List
 import torchvision
 
@@ -259,10 +250,6 @@ def download_data(source: str,
     
     Returns:
         pathlib.Path to downloaded data.
-    
-    Example usage:
-        download_data(source="https://github.com/mrdbourke/pytorch-deep-learning/raw/main/data/pizza_steak_sushi.zip",
-                      destination="pizza_steak_sushi")
     """
     # Setup path to data folder
     data_path = Path("data/")
