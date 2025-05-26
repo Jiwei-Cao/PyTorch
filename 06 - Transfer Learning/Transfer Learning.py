@@ -87,3 +87,9 @@ manual_transforms = transforms.Compose([
     transforms.ToTensor(),
     normalize
 ])
+
+train_dataloader, test_dataloader, class_names = data_setup.create_dataloaders(train_dir=train_dir,
+                                                                               test_dir=test_dir,
+                                                                               transform=manual_transforms,
+                                                                               batch_size=32)
+train_dataloader, test_dataloader, class_names
