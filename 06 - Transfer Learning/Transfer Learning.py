@@ -266,3 +266,9 @@ if not custom_image_path.is_file():
     f.write(request.content)
 else:
   print(f"{custom_image_path} already exists, skipping download...")
+
+# Predict on custom image
+pred_and_plot_image(model=model,
+                    image_path=custom_image_path,
+                    class_names=class_names,
+                    image_size=(224, 224))
