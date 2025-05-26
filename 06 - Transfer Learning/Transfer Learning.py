@@ -110,3 +110,8 @@ train_dataloader, test_dataloader, class_names = data_setup.create_dataloaders(t
                                                                               transform=auto_transforms,
                                                                               batch_size=32)
 train_dataloader, test_dataloader, class_names
+
+# 3 Setting up a pretrained model
+
+model = torchvision.models.efficientnet_b0(weights=weights).to(device)
+model
