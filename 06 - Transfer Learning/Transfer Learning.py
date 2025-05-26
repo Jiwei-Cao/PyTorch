@@ -116,7 +116,7 @@ train_dataloader, test_dataloader, class_names
 model = torchvision.models.efficientnet_b0(weights=weights).to(device)
 model
 
-# Getting a summary of our model with torchinfo.summary()
+# Getting a summary of the model with torchinfo.summary()
 
 summary(model=model,
         input_size=[1, 3, 224, 224],
@@ -124,7 +124,7 @@ summary(model=model,
         col_width=20,
         row_settings=["var_names"])
 
-# Freezing the base model and changing the output layer to suit our needs
+# Freezing the base model and changing the output layer to suit required needs
 
 for param in model.features.parameters():
   param.requires_grad = False
@@ -132,7 +132,7 @@ for param in model.features.parameters():
 torch.manual_seed(42)
 torch.cuda.manual_seed(42)
 
-# Update the classifier head of our model to suit our problem
+# Update the classifier head of our model to suit the required problem
 model.classifier = nn.Sequential(
     nn.Dropout(p=0.2, inplace=True),
     nn.Linear(in_features=1280,
