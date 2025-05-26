@@ -123,3 +123,20 @@ summary(model=model,
         col_names=["input_size", "output_size", "num_params", "trainable"],
         col_width=20,
         row_settings=["var_names"])
+
+# Freezing the base model and changing the output layer to suit our needs
+
+for param in model.features.parameters():
+  param.requires_grad = False
+
+torch.manual_seed(42)
+torch.cuda.manual_seed(42)
+
+# Update the classifier head of our model to suit our problem
+model.classifier = nn.Sequential(
+    nn.Dropout(p=0.2, inplace=True),
+    nn.Linear(in_features=1280,
+              out_features=len(class_names))
+).to(device)
+
+model.classifier
