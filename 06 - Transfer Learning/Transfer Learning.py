@@ -239,3 +239,18 @@ def pred_and_plot_image(model: torch.nn.Module,
   plt.imshow(img)
   plt.title(f"Pred: {class_names[target_image_pred_label]} | Prob: {target_image_pred_probs.max():.3f}")
   plt.axis(False)
+
+# Get a random list of image paths from the test set
+
+import random
+num_images_to_plot = 3
+test_image_path_list = list(Path(test_dir).glob("*/*.jpg"))
+test_image_path_sample = random.sample(population=test_image_path_list, 
+                                       k=num_images_to_plot)
+
+# Make predictions on and plot the images
+for image_path in test_image_path_sample:
+  pred_and_plot_image(model=model,
+                      image_path=image_path,
+                      class_names=class_names,
+                      image_size=(224, 224))
