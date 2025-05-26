@@ -8,7 +8,6 @@ class TinyVGG(nn.Module):
   """Creates the TinyVGG architecture.
 
   Replicates the TinyVGG architecture from the CNN explainer website in PyTorch.
-  See the original architecture here: https://poloclub.github.io/cnn-explainer/
 
   Args:
     input_shape: An integer indicating number of input channels.
