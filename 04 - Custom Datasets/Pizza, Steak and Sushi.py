@@ -24,7 +24,7 @@ if not image_path.is_dir():
 
 # Download pizza, steak and sushi data images from github
 with open(data_path / "pizza_steak_sushi.zip", "wb") as f:
-  request = requests.get("https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/data/pizza_steak_sushi.zip")
+  request = requests.get("https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/data/pizza_steak_sushi.zip") 
   f.write(request.content)
 
 # Unzip pizza, steak and sushi data
