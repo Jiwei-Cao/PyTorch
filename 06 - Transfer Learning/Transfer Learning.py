@@ -152,3 +152,24 @@ summary(model=model,
 # Define loss and optimizer
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+
+# Set the manual seeds
+torch.manual_seed(42)
+torch.cuda.manual_seed(42)
+
+#Start the timer
+from timeit import default_timer as timer
+start_time = timer()
+
+# Setup training and save the results
+results = engine.train(model=model,
+                       train_dataloader=train_dataloader,
+                       test_dataloader=test_dataloader,
+                       optimizer=optimizer,
+                       loss_fn=loss_fn,
+                       epochs=5,
+                       device=device)
+
+# End the timer and print out how long it took
+end_time = timer()
+print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
