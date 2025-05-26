@@ -67,3 +67,9 @@ else:
 
     # Remove .zip file
     os.remove(data_path / "pizza_steak_sushi.zip")
+
+# Setup directory path
+train_dir = image_path / "train"
+test_dir = image_path / "test"
+
+train_dir, test_dir
