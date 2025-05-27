@@ -272,3 +272,4 @@ pred_and_plot_image(model=model,
                     image_path=custom_image_path,
                     class_names=class_names,
                     image_size=(224, 224))
+                    
