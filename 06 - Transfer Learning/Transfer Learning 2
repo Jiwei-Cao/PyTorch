@@ -242,3 +242,16 @@ for _, row in top_5_most_wrong.iterrows():
   plt.imshow(img.permute(1, 2, 0)) # matplotlib likes images in [height, width, color_channels]
   plt.title(f"True: {true_label} | Pred: {pred_class} | Prob: {pred_prob:.3f}")
   plt.axis(False)
+
+# Random image to try on model
+# !wget https://images.unsplash.com/photo-1588315029754-2dd089d39a1a
+# !cp photo-1588315029754-2dd089d39a1a pizza.jpg
+
+from PIL import Image
+
+with Image.open("pizza.jpg") as img:
+  # Reduce the image size and width by 10
+  (width, height) = (img.width // 10, img.height // 10)
+  img_resized = img.resize((width, height))
+
+img_resized
