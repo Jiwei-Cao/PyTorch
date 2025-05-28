@@ -182,7 +182,7 @@ fig, ax = plot_confusion_matrix(
     figsize=(10, 7)
 )
 
-# Plot the most wrong images predicted by the model
+# Plot the most wrong predicted images by the model
 
 # Get all test data paths
 test_data_paths = list(Path(test_dir).glob("*/*.jpg"))
