@@ -165,3 +165,19 @@ except:
 import mlxtend
 print(mlxtend.__version__)
 assert int(mlxtend.__version__.split(".")[1]) >= 19 # should be version 0.19.0 or higher
+
+from torchmetrics import ConfusionMatrix
+from mlxtend.plotting import plot_confusion_matrix
+
+# Setup confusion matrix instance
+confmat = ConfusionMatrix(task="multiclass",
+                          num_classes=len(class_names))
+confmat_tensor = confmat(preds=test_preds,
+                         target=test_truth)
+
+# Plot the confusion matrix
+fig, ax = plot_confusion_matrix(
+    conf_mat=confmat_tensor.numpy(),
+    class_names=class_names,
+    figsize=(10, 7)
+)
