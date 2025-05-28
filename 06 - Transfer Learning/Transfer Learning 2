@@ -419,3 +419,29 @@ model_2.classifier = nn.Sequential(
   nn.Dropout(p=0.2, inplace=True),
   nn.Linear(in_features=1280, out_features=3, bias=True)
 ).to(device) 
+
+# Train model 
+
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model_2.parameters(), lr=0.001)
+
+# Set the random seeds
+torch.manual_seed(42)
+torch.cuda.manual_seed(42)
+
+# Start the timer
+from timeit import default_timer as timer 
+start_time = timer()
+
+# Setup training and save the results
+model_2_results = engine.train(model=model_2,
+                              train_dataloader=train_dataloader_20_percent,
+                              test_dataloader=test_dataloader_20_percent,
+                              optimizer=optimizer,
+                              loss_fn=loss_fn,
+                              epochs=5,
+                              device=device)
+
+# End the timer and print out how long it took
+end_time = timer()
+print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
