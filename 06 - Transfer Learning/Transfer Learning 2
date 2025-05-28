@@ -84,3 +84,17 @@ model_0 = torchvision.models.efficientnet_b0(pretrained=True).to(device)
 # Freeze all base layers in the features section of the model (the feature extractor) by setting requires_grad=False
 for param in model_0.features.parameters():
   param.requires_grad = False
+
+# Set the manual seeds
+torch.manual_seed(42)
+torch.cuda.manual_seed(42)
+
+# Get the length of class names 
+output_shape = len(class_names)
+
+# Recreate the classifier layer for our problem 
+model_0.classifier = torch.nn.Sequential(
+    torch.nn.Dropout(p=0.2, inplace=True),
+    torch.nn.Linear(in_features=1280,
+                    out_features=output_shape, 
+                    bias=True)).to(device)
