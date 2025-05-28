@@ -181,3 +181,50 @@ fig, ax = plot_confusion_matrix(
     class_names=class_names,
     figsize=(10, 7)
 )
+
+# Plot the most wrong images predicted by the model
+
+# Get all test data paths
+test_data_paths = list(Path(test_dir).glob("*/*.jpg"))
+test_labels = [path.parent.stem for path in test_data_paths]
+
+# Create a function to return a list of dictionaries with sample, label, prediction, pred prob
+def pred_and_store(test_paths, model, transform, class_names, device):
+  test_pred_list = []
+  for path in tqdm(test_paths):
+    # Create empty dict to store info for each sample
+    pred_dict = {}
+
+    # Get sample path
+    pred_dict["image_path"] = path
+
+    # Get class name
+    class_name = path.parent.stem
+    pred_dict["class_name"] = class_name
+
+    # Get prediction and prediction probability
+    from PIL import Image
+    img = Image.open(path)
+    transformed_image = transform(img).unsqueeze(0) # transform image and add batch dimension
+    model.eval()
+    with torch.inference_mode():
+      pred_logit = model(transformed_image.to(device))
+      pred_prob = torch.softmax(pred_logit, dim=1)
+      pred_label = torch.argmax(pred_prob, dim=1)
+      pred_class = class_names[pred_label.cpu()]
+    
+    pred_dict["correct"] = class_name == pred_class
+
+    # print(pred_dict)
+    # Add the dictionary to the list of preds
+    test_pred_list.append(pred_dict)
+
+  return test_pred_list
+
+test_pred_dicts = pred_and_store(test_paths=test_data_paths,
+                                 model=model_0,
+                                 transform=simple_transform,
+                                 class_names=class_names,
+                                 device=device)
+
+test_pred_dicts[:5]
