@@ -80,3 +80,7 @@ train_dataloader, test_dataloader, class_names
 # Setup pretrained model
 model_0 = torchvision.models.efficientnet_b0(pretrained=True).to(device)
 # model_0
+
+# Freeze all base layers in the features section of the model (the feature extractor) by setting requires_grad=False
+for param in model_0.features.parameters():
+  param.requires_grad = False
