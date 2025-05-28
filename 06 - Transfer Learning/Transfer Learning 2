@@ -451,3 +451,13 @@ max(model_0_results["test_acc"]), min(model_0_results["test_loss"])
 
 # Check results with 20% of data for 5 epochs 
 max(model_2_results["test_acc"]), min(model_2_results["test_loss"])
+
+# Different model from torchvision.models
+
+# Create a transform to transform the data
+effnet_b2_transform = transforms.Compose([
+  transforms.Resize((288, 288)), # effnet_b2 takes images of size 288, 288 
+  transforms.ToTensor(),
+  transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                       std=[0.229, 0.224, 0.225])
+])
