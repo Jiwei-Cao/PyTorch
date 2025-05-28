@@ -470,3 +470,22 @@ train_dataloader_effnet_b2, test_dataloader_effnet_b2, class_names = data_setup.
                                                                                                    test_dir=test_dir,
                                                                                                    transform=effnet_b2_transform,
                                                                                                    batch_size=32)
+
+# Create a effnet_b2 new model 
+model_3 = torchvision.models.efficientnet_b2(pretrained=True).to(device)
+
+# Freeze the base layers
+for param in model_3.parameters():
+  param.requires_grad = False
+
+# Change the classifier head (to suit our problem)
+torch.manual_seed(42)
+model_3.classifier = nn.Sequential(
+    nn.Dropout(p=0.3, inplace=True),
+    nn.Linear(in_features=1408, out_features=len(class_names), bias=True)
+).to(device)
+
+# Get a summary of the new model
+# summary(model_3,
+#         input_size=[32, 3, 288, 288],
+#         col_names=["input_size", "output_size", "trainable"])
