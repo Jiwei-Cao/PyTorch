@@ -280,3 +280,12 @@ pred_and_plot(image_path="pizza.jpg",
               model=model_0,
               transform=simple_transform,
               class_names=class_names)
+
+# Second random image to try on model
+# !wget https://images.unsplash.com/photo-1546964124-0cce460f38ef
+# !cp photo-1546964124-0cce460f38ef steak.jpg
+
+pred_and_plot("steak.jpg",
+          model=model_0,
+          transform=simple_transform,
+          class_names=class_names)
