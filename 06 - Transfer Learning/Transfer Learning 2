@@ -509,3 +509,15 @@ model_3_results = engine.train(model=model_3,
 # End the timer and print out how long it took
 end_time = timer()
 print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
+
+# Check effnet_b0 results with 10% of data for 5 epochs
+max(model_0_results["test_acc"]), min(model_0_results["test_loss"])
+
+# Check effnet_b0 results with 10% of data for 10 epochs (double training time)
+max(model_1_results["test_acc"]), min(model_1_results["test_loss"])
+
+# Check effnet_b0 results with 20% of data for 5 epochs (double data)
+max(model_2_results["test_acc"]), min(model_2_results["test_loss"])
+
+# Check effnet_b2 results with 10% of data for 5 epochs (double model parameters)
+max(model_3_results["test_acc"]), min(model_3_results["test_loss"])
