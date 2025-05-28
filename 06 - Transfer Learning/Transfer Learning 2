@@ -351,3 +351,37 @@ except:
 
 # Plot the loss curves of the model
 plot_loss_curves(model_1_results)
+
+# Train the model with more data (20% of the images from Food101)
+
+# Setup path to data folder
+data_path = Path("data/")
+image_path = data_path / "pizza_steak_sushi_20_percent"
+image_data_zip_path = data_path / "pizza_steak_sushi_20_percent.zip"
+
+# If the image folder doesn't exist, download and prepare it
+if (image_path / "train").is_dir() and (image_path / "test").is_dir():
+  print(f"{image_path} directory exists.")
+else:
+  print(f"Did not find {image_path} directory, creating one...")
+  image_path.mkdir(parents=True, exist_ok=True)
+
+  # Download data
+  with open(image_data_zip_path, "wb") as f:
+    request = requests.get("https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/data/pizza_steak_sushi_20_percent.zip")
+    print("Downloading data...")
+    f.write(request.content)
+
+  # Unzip data
+  with zipfile.ZipFile(image_data_zip_path, "r") as zip_ref:
+    print("Unzipping data...")
+    zip_ref.extractall(image_path)
+
+  # Remove .zip file
+  os.remove(image_data_zip_path)
+
+# Setup Dirs
+train_dir_20_percent = image_path / "train"
+test_dir_20_percent = image_path / "test"
+
+train_dir_20_percent, test_dir_20_percent
