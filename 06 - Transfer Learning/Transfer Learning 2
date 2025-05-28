@@ -489,3 +489,23 @@ model_3.classifier = nn.Sequential(
 # summary(model_3,
 #         input_size=[32, 3, 288, 288],
 #         col_names=["input_size", "output_size", "trainable"])
+
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model_3.parameters(), lr=0.001)
+
+# Start the timer
+from timeit import default_timer as timer 
+start_time = timer()
+
+# Setup training and save the results
+model_3_results = engine.train(model=model_3,
+                              train_dataloader=train_dataloader_effnet_b2,
+                              test_dataloader=test_dataloader_effnet_b2,
+                              optimizer=optimizer,
+                              loss_fn=loss_fn,
+                              epochs=5,
+                              device=device)
+
+# End the timer and print out how long it took
+end_time = timer()
+print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
