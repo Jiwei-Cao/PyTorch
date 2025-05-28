@@ -317,3 +317,24 @@ model_1.classifier = torch.nn.Sequential(
 # summary(model_1,
 #         input_size=[32, 3, 224, 224],
 #         col_names=["input_size", "output_size", "trainable"])
+
+# Start the timer
+start_time = timer()
+
+# Create loss and optimizer
+loss_fn = torch.nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model_1.parameters(), lr=0.001)
+
+# Setup training and save the results
+model_1_results = engine.train(model=model_1,
+                               train_dataloader=train_dataloader,
+                               test_dataloader=test_dataloader,
+                               optimizer=optimizer,
+                               loss_fn=loss_fn,
+                               epochs=10,
+                               device=device)
+
+# End the timer
+end_time = timer()
+
+print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
