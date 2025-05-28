@@ -1,0 +1,26 @@
+import torch
+import torchvision
+import numpy as np
+import matplotlib.pyplot as plt
+
+from torch import nn
+from torchvision import transforms, datasets
+
+try:
+  from torchinfo import summary
+except:
+  print("[INFO] Couldn't find torchinfo... installing it.")
+  # !pip install -q torchinfo
+  from torchinfo import summary
+
+try:
+    from going_modular import data_setup, engine
+except:
+    # Get the going_modular scripts
+    print("[INFO] Couldn't find going_modular scripts... downloading them from GitHub.")
+    # !git clone https://github.com/Jiwei-Cao/PyTorch
+    # !mv "PyTorch/05 - Going Modular/going_modular" .
+    # !rm -rf PyTorch
+    from going_modular import data_setup, engine
+
+    
