@@ -76,3 +76,7 @@ train_dataloader, test_dataloader, class_names = data_setup.create_dataloaders(t
                                                                                transform = simple_transform, # resize, convert images to between 0 & 1 and normalize them
                                                                                batch_size=32)
 train_dataloader, test_dataloader, class_names
+
+# Setup pretrained model
+model_0 = torchvision.models.efficientnet_b0(pretrained=True).to(device)
+# model_0
