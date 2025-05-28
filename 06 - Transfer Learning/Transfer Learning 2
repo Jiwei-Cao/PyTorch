@@ -145,3 +145,9 @@ with torch.inference_mode():
 # Concatenate the test preds and put them on the CPU
 test_preds = torch.cat(test_preds).cpu()
 test_preds
+
+# Make a confusion matrix with the test preds and truth labels
+
+# Get the truth labels for test dataset
+test_truth = torch.cat([y for X, y in test_dataloader])
+test_truth
