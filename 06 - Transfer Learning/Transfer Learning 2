@@ -229,3 +229,16 @@ test_pred_dicts = pred_and_store(test_paths=test_data_paths,
 
 test_pred_dicts[:5]
 
+# Plot the top 5 most wrong images
+for _, row in top_5_most_wrong.iterrows():
+  image_path = row["image_path"]
+  true_label = row["class_name"]
+  pred_class = row["pred_class"]
+  pred_prob = row["pred_prob"]
+
+  # Plot the image and various details
+  img = torchvision.io.read_image(str(image_path)) # get image as tensor
+  plt.figure()
+  plt.imshow(img.permute(1, 2, 0)) # matplotlib likes images in [height, width, color_channels]
+  plt.title(f"True: {true_label} | Pred: {pred_class} | Prob: {pred_prob:.3f}")
+  plt.axis(False)
