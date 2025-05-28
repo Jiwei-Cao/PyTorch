@@ -403,3 +403,19 @@ train_dataloader_20_percent, test_dataloader_20_percent, class_names = data_setu
                                                                                                      batch_size=32) # set mini-batch size to 32
 
 train_dataloader_20_percent, test_dataloader_20_percent, class_names
+
+len(train_dataloader_20_percent), len(test_dataloader_20_percent)
+
+# Create a new model for 20 percent of the data
+model_2 = torchvision.models.efficientnet_b0(pretrained=True).to(device)
+
+# Freeze all the base layers
+for param in model_2.features.parameters():
+  param.requires_grad = False
+
+# Change the classifier head
+torch.manual_seed(42)
+model_2.classifier = nn.Sequential(
+  nn.Dropout(p=0.2, inplace=True),
+  nn.Linear(in_features=1280, out_features=3, bias=True)
+).to(device) 
