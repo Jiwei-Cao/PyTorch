@@ -92,7 +92,7 @@ torch.cuda.manual_seed(42)
 # Get the length of class names 
 output_shape = len(class_names)
 
-# Recreate the classifier layer for our problem 
+# Recreate the classifier layer to fit a specific problem
 model_0.classifier = torch.nn.Sequential(
     torch.nn.Dropout(p=0.2, inplace=True),
     torch.nn.Linear(in_features=1280,
