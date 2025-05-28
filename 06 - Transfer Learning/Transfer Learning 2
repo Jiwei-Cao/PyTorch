@@ -448,3 +448,6 @@ print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
 
 # Check results with 10% of data for 5 epochs
 max(model_0_results["test_acc"]), min(model_0_results["test_loss"])
+
+# Check results with 20% of data for 5 epochs 
+max(model_2_results["test_acc"]), min(model_2_results["test_loss"])
