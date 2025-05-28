@@ -98,3 +98,8 @@ model_0.classifier = torch.nn.Sequential(
     torch.nn.Linear(in_features=1280,
                     out_features=output_shape, 
                     bias=True)).to(device)
+
+# Training the model
+
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model_0.parameters(), lr=0.001)
