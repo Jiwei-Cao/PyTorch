@@ -120,3 +120,28 @@ model_0_results = engine.train(model=model_0,
 # End the timer and print out how long it took
 end_time = timer()
 print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
+
+from tqdm.auto import tqdm
+
+# Make predictions on the entire test dataset
+test_preds = []
+model_0.eval()
+with torch.inference_mode():
+  # Loop through the batches in the test dataloader
+  for X, y in tqdm(test_dataloader):
+    X, y = X.to(device), y.to(device)
+    # Pass the data through the model
+    test_logits = model_0(X)
+
+    # Convert the pred logits to pred probs
+    pred_probs = torch.softmax(test_logits, dim=1)
+
+    # Convert the pred probs to pred labels
+    pred_labels = torch.argmax(pred_probs, dim=1)
+
+    # Add the pred labels to test preds list
+    test_preds.append(pred_labels)
+
+# Concatenate the test preds and put them on the CPU
+test_preds = torch.cat(test_preds).cpu()
+test_preds
