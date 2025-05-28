@@ -298,3 +298,22 @@ pred_and_plot(image_path="apple.jpg",
               model=model_0,
               transform=simple_transform,
               class_names=class_names)
+
+# Retrain the model with higher epochs
+
+model_1 = torchvision.models.efficientnet_b0(pretrained=True).to(device)
+
+# Freeze the base layers
+for param in model_1.features.parameters():
+  param.requires_grad = False
+
+# Change the classification head
+torch.manual_seed(42)
+model_1.classifier = torch.nn.Sequential(
+    nn.Dropout(p=0.2, inplace=True),
+    nn.Linear(in_features=1280, out_features=len(class_names), bias=True)
+).to(device)
+
+# summary(model_1,
+#         input_size=[32, 3, 224, 224],
+#         col_names=["input_size", "output_size", "trainable"])
