@@ -255,3 +255,28 @@ with Image.open("pizza.jpg") as img:
   img_resized = img.resize((width, height))
 
 img_resized
+
+# Function to pred and plot images
+def pred_and_plot(image_path, model, transform , class_names, device=device):
+  # Open image
+  image = Image.open(image_path)
+
+  # Transform image
+  transformed_image = transform(image)
+
+  # Pred on image
+  model.eval()
+  with torch.inference_mode():
+    pred_logit = model(transformed_image.unsqueeze(0).to(device))
+    pred_label = torch.argmax(torch.softmax(pred_logit, dim=1), dim=1)
+
+    # Plot image and pred
+    plt.figure()
+    plt.imshow(image)
+    plt.title(f"Pred: {class_names[pred_label]}")
+    plt.axis(False)
+
+pred_and_plot(image_path="pizza.jpg",
+              model=model_0,
+              transform=simple_transform,
+              class_names=class_names)
