@@ -338,3 +338,16 @@ model_1_results = engine.train(model=model_1,
 end_time = timer()
 
 print(f"[INFO] Total training time: {end_time-start_time:.3f} seconds")
+
+# Get the plot_loss_curves() function helper_functions.py
+try:
+  from helper_functions import plot_loss_curves
+except:
+  print("[INFO] Couldn't find helper_functions.py, downloading...")
+  with open("helper_functions.py", "wb") as f:
+    request = requests.get("https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/helper_functions.py")
+    f.write(request.content)
+  from helper_functions import plot_loss_curves
+
+# Plot the loss curves of the model
+plot_loss_curves(model_1_results)
