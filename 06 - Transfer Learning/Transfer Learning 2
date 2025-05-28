@@ -69,3 +69,10 @@ simple_transform = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], # 3. A mean of [0.485, 0.456, 0.406] (across each colour channel)
                          std=[0.229, 0.224, 0.225]) # 4. A standard deviation of [0.229, 0.224, 0.225] (across each colour channel),
 ])
+
+# Create training and testing DataLoaders and a list of class names
+train_dataloader, test_dataloader, class_names = data_setup.create_dataloaders(train_dir=train_dir,
+                                                                               test_dir=test_dir,
+                                                                               transform = simple_transform, # resize, convert images to between 0 & 1 and normalize them
+                                                                               batch_size=32)
+train_dataloader, test_dataloader, class_names
