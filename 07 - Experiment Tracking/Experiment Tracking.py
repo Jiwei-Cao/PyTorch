@@ -112,3 +112,23 @@ train_dataloader, test_dataloader, class_names = data_setup.create_dataloaders(
 )
 
 train_dataloader, test_dataloader, class_names
+
+# Auto creation
+
+# Setup pretrinaed weights
+weights = torchvision.models.EfficientNet_B0_Weights.DEFAULT
+weights
+
+# Get transforms from weights
+auto_transforms = weights.transforms()
+auto_transforms
+
+# Create DataLoaders
+train_dataloader, test_dataloader, class_names = data_setup.create_dataloaders(
+    train_dir=train_dir,
+    test_dir=test_dir,
+    transform = auto_transforms,
+    batch_size=32
+)
+
+train_dataloader, test_dataloader, class_names
