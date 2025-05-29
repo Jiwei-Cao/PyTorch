@@ -91,3 +91,24 @@ train_dir = image_path / "train"
 test_dir = image_path / "test"
 
 train_dir, test_dir
+
+# Create Datasets and DataLoaders
+
+# Manual Creation
+normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
+
+manual_transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+    normalize
+])
+
+train_dataloader, test_dataloader, class_names = data_setup.create_dataloaders(
+    train_dir=train_dir,
+    test_dir=test_dir,
+    transform=manual_transform,
+    batch_size=32
+)
+
+train_dataloader, test_dataloader, class_names
