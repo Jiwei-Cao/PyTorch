@@ -288,3 +288,23 @@ results = train(
 
 # %load_ext tensorboard
 # %tensorboard --logdir runs
+
+# Function to prepare a SummaryWriter() instance
+def create_writer(experiment_name: str,
+                  model_name: str, 
+                  extra: str = None):
+  """Creates a torch.utils.tensorboard.writer.SummaryWriter() instance tracking to a specific directory"""
+  from datetime import datetime
+  import os
+
+  # Get timestamp of current date in reverse order
+  timestamp = datetime.now().strftime("%y-%m-%d")
+
+  # Create log directory path
+  if extra:
+    log_dir = os.path.join("runs", timestamp, experiment_name, model_name, extra)
+  else:
+    log_dir = os.path.join("runs", timestamp, experiment_name, model_name)
+  
+  print(f"[INFO] Created SummaryWriter saving to {log_dir}")
+  return SummaryWriter(log_dir=log_dir)
