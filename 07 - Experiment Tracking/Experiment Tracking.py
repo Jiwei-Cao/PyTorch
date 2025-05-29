@@ -147,3 +147,12 @@ model.classifier = nn.Sequential(
     nn.Dropout(p=0.2, inplace=True),
     nn.Linear(in_features=1280, out_features=len(class_names))
 ).to(device)
+
+summary(
+    model=model,
+    input_size=(32, 3, 224, 224),
+    verbose=0,
+    col_names=["input_size", "output_size", "num_params", "trainable"],
+    col_width=20,
+    row_settings=["var_names"]
+)
