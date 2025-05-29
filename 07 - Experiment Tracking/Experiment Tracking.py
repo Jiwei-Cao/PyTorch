@@ -30,3 +30,6 @@ except:
     # !mv "PyTorch/05 - Going Modular/going_modular" .
     # !rm -rf PyTorch
     from going_modular import data_setup, engine
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+device
