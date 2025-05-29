@@ -270,3 +270,16 @@ def train(model: torch.nn.Module,
 
   # Return the filled results at the end of the epochs
   return results
+
+# Train model
+
+set_seeds()
+results = train(
+    model=model,
+    train_dataloader=train_dataloader,
+    test_dataloader=test_dataloader,
+    optimizer=optimizer,
+    loss_fn=loss_fn,
+    epochs=5,
+    device=device
+)
