@@ -33,3 +33,9 @@ except:
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 device
+
+def set_seeds(seed: int = 42):
+  torch.manual_seed(seed)
+  torch.cuda.manual_seed(seed)
+
+set_seeds()
