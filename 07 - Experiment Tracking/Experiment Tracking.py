@@ -162,3 +162,8 @@ summary(
 # Define loss function and optimizer
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+
+# Setup a SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
+writer = SummaryWriter()
+writer
