@@ -308,3 +308,11 @@ def create_writer(experiment_name: str,
   
   print(f"[INFO] Created SummaryWriter saving to {log_dir}")
   return SummaryWriter(log_dir=log_dir)
+
+example_writer = create_writer(
+    experiment_name="data_10_percent",
+    model_name="effnetb0",
+    extra="5_epochs"
+)
+
+example_writer
