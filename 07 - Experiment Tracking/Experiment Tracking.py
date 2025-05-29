@@ -82,3 +82,6 @@ def download_data(source: str,
     os.remove(data_path / target_file)
 
   return image_path
+
+image_path = download_data(source="https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/data/pizza_steak_sushi.zip",
+                           destination="pizza_steak_sushi")
