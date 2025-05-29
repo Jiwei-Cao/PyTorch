@@ -283,3 +283,8 @@ results = train(
     epochs=5,
     device=device
 )
+
+# View model results with TensorBoard
+
+# %load_ext tensorboard
+# %tensorboard --logdir runs
