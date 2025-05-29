@@ -156,3 +156,9 @@ summary(
     col_width=20,
     row_settings=["var_names"]
 )
+
+# Train model and track results
+
+# Define loss function and optimizer
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
