@@ -137,3 +137,13 @@ train_dataloader, test_dataloader, class_names
 
 model = torchvision.models.efficientnet_b0(weights=weights).to(device)
 # model
+
+# Freeze all base layers
+for param in model.features.parameters():
+  param.requires_grad = False
+
+# Adjust the classifier head
+model.classifier = nn.Sequential(
+    nn.Dropout(p=0.2, inplace=True),
+    nn.Linear(in_features=1280, out_features=len(class_names))
+).to(device)
