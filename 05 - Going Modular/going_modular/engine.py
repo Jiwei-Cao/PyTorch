@@ -161,6 +161,8 @@ def train(model: torch.nn.Module,
       "test_acc": []
   }
 
+  return results
+
   # Loop through training and testing steps for a number of epochs
   for epoch in tqdm(range(epochs)):
       train_loss, train_acc = train_step(model=model,
