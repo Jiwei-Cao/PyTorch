@@ -418,3 +418,16 @@ def train(model: torch.nn.Module,
 
   # Return the filled results at the end of the epochs
   return results
+
+# Setting up a series of modelling experiments
+
+# Download 10% and 20% datasets
+data_10_percent_path = download_data(
+    source="https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/data/pizza_steak_sushi.zip",
+    destination="pizza_steak_sushi"
+)
+
+data_20_percent_path = download_data(
+    source="https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/data/pizza_steak_sushi_20_percent.zip",
+    destination="pizza_steak_sushi_20_percent"
+)
