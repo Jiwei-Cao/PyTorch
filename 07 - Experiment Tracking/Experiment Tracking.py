@@ -431,3 +431,12 @@ data_20_percent_path = download_data(
     source="https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/data/pizza_steak_sushi_20_percent.zip",
     destination="pizza_steak_sushi_20_percent"
 )
+
+# Setup training directory paths
+train_dir_10_percent = data_10_percent_path / "train"
+train_dir_20_percent = data_20_percent_path / "train"
+
+# Setup testing directory paths
+test_dir = data_10_percent_path / "test"
+
+train_dir_10_percent, train_dir_20_percent, test_dir
