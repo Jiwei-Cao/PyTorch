@@ -450,3 +450,26 @@ simple_transform = transforms.Compose([
     transforms.ToTensor(),
     normalize
 ])
+
+BATCH_SIZE = 32
+
+# Create 10% training and test dataloaders
+train_dataloader_10_percent, test_dataloader, class_names = data_setup.create_dataloaders(
+    train_dir=train_dir_10_percent,
+    test_dir=test_dir,
+    transform=simple_transform,
+    batch_size=BATCH_SIZE
+)
+
+# Create 20% training and test dataloaders
+train_dataloader_20_percent, test_dataloader, class_names = data_setup.create_dataloaders(
+    train_dir=train_dir_20_percent,
+    test_dir=test_dir,
+    transform=simple_transform,
+    batch_size=BATCH_SIZE
+)
+
+print(f"Number of batches of size {BATCH_SIZE} in 10% train data: {len(train_dataloader_10_percent)}")
+print(f"Number of batches of size {BATCH_SIZE} in 20% train data: {len(train_dataloader_20_percent)}")
+print(f"Number of batches of size {BATCH_SIZE} in 10% test data: {len(test_dataloader)}")
+print(f"Class names: {class_names}")
