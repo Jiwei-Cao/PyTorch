@@ -440,3 +440,13 @@ train_dir_20_percent = data_20_percent_path / "train"
 test_dir = data_10_percent_path / "test"
 
 train_dir_10_percent, train_dir_20_percent, test_dir
+
+# Transform datasets and create dataloaders
+normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
+
+simple_transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+    normalize
+])
