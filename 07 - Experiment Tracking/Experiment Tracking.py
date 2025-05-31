@@ -626,7 +626,16 @@ for dataloader_name, train_dataloader in train_dataloaders.items():
       )
       print("-"*50 + "\n")
 
-# View experiments in Tensor Board
+# View experiments in Tensor"Board
 
 # %load_ext tensorboard
 # %tensorboard --logdir runs
+
+# Load in the best model and make predictions with it
+best_model_path = "models/07_effnetb2_data_20_percent_10_epochs.pth"
+
+# Instantiate a new instance of EffNetB2
+best_model = create_effnetb2()
+
+# Load the saved best model state_dict()
+best_model.load_state_dict(torch.load(best_model_path))
