@@ -514,3 +514,25 @@ def create_effnetb0():
   model.name = "effnetb0"
   print(f"[INFO] Created new {model.name} model...")
   return model
+
+# Create an EffnetB2 feature extractor
+def create_effnetb2():
+  # Get the weights and setup a model
+  weights = torchvision.models.EfficientNet_B2_Weights.DEFAULT
+  model = torchvision.models.efficientnet_b2(weights=weights).to(device)
+
+  # Freeze the base model layers
+  for param in model.features.parameters():
+    param.requires_grad = False
+
+  # Change the classifier head
+  set_seeds()
+  model.classifier = nn.Sequential(
+      nn.Dropout(p=0.3, inplace=True),
+      nn.Linear(in_features=1408, out_features=OUT_FEATURES)
+  ).to(device)
+
+  # Give the model a name
+  model.name = "effnetb2"
+  print(f"[INFO] Created new {model.name} model...")
+  return model
