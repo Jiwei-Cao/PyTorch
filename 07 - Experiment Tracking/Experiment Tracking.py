@@ -645,3 +645,22 @@ best_model.load_state_dict(torch.load(best_model_path))
 # Get the model size in bytes then convert it to megabytes
 effnetb2_model_size = Path(best_model_path).stat().st_size // (1024*1024)
 print(f"EfficientNetB2 feature extractor model size: {effnetb2_model_size}MB")
+
+from going_modular.predictions import pred_and_plot_image
+
+# Get a random list of 3 image path names from the test dataset
+import random
+num_images_to_plot = 3
+test_image_path_list = list(Path(data_20_percent_path / "test").glob("*/*.jpg"))
+test_image_path_sample = random.sample(
+    test_image_path_list,
+    k=num_images_to_plot
+)
+
+for image_path in test_image_path_sample:
+  pred_and_plot_image(
+      model=best_model,
+      image_path=image_path,
+      class_names=class_names,
+      image_size=(224, 224)
+  )
