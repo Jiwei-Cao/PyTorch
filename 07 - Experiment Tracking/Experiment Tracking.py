@@ -639,3 +639,9 @@ best_model = create_effnetb2()
 
 # Load the saved best model state_dict()
 best_model.load_state_dict(torch.load(best_model_path))
+
+# Check the model file size
+
+# Get the model size in bytes then convert it to megabytes
+effnetb2_model_size = Path(best_model_path).stat().st_size // (1024*1024)
+print(f"EfficientNetB2 feature extractor model size: {effnetb2_model_size}MB")
