@@ -557,3 +557,17 @@ summary(
     col_width=20,
     row_settings=["var_names"]
 )
+
+# Create experiments and set up training code
+
+# Create epoch list
+num_epochs = [5, 10]
+
+# Create models list
+models = ["effnetb0", "effnetb2"]
+
+# Create a DataLoaders dictionary
+train_dataloaders = {
+    "data_10_percent": train_dataloader_10_percent,
+    "data_20_percent": train_dataloader_20_percent
+}
