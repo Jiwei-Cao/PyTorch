@@ -536,3 +536,6 @@ def create_effnetb2():
   model.name = "effnetb2"
   print(f"[INFO] Created new {model.name} model...")
   return model
+
+created_model_test_effnetb0 = create_effnetb0()
+created_model_test_effnetb2 = create_effnetb2()
