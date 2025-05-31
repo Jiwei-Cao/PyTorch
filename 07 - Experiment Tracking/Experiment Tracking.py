@@ -664,3 +664,17 @@ for image_path in test_image_path_sample:
       class_names=class_names,
       image_size=(224, 224)
   )
+
+# Predict on a custom image
+from pathlib import Path
+
+
+custom_image_path = Path("sushi-steak.jpg")
+
+if not custom_image_path.is_file():
+  with open(custom_image_path, "wb") as f:
+    request = requests.get("https://raw.githubusercontent.com/Jiwei-Cao/PyTorch/main/06%20-%20Transfer%20Learning/sushi-steak.jpg")
+    print(f"Download {custom_image_path}...")
+    f.write(request.content)
+else:
+  print(f"{custom_image_path} already exists, skipping download...")
