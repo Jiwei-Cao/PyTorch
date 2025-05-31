@@ -548,3 +548,12 @@ summary(
     col_width=20,
     row_settings=["var_names"]
 )
+
+summary(
+    model=created_model_test_effnetb2,
+    input_size=(32, 3, 224, 224),
+    verbose=0,
+    col_names=["input_size", "output_size", "num_params", "trainable"],
+    col_width=20,
+    row_settings=["var_names"]
+)
