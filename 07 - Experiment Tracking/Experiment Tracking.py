@@ -625,3 +625,8 @@ for dataloader_name, train_dataloader in train_dataloaders.items():
           model_name=save_filepath
       )
       print("-"*50 + "\n")
+
+# View experiments in Tensor Board
+
+# %load_ext tensorboard
+# %tensorboard --logdir runs
