@@ -473,3 +473,11 @@ print(f"Number of batches of size {BATCH_SIZE} in 10% train data: {len(train_dat
 print(f"Number of batches of size {BATCH_SIZE} in 20% train data: {len(train_dataloader_20_percent)}")
 print(f"Number of batches of size {BATCH_SIZE} in 10% test data: {len(test_dataloader)}")
 print(f"Class names: {class_names}")
+
+# Create feature extractor models
+
+# Create an EffNetB2
+effnetb2_weights = torchvision.models.EfficientNet_B2_Weights.DEFAULT
+effnetb2 = torchvision.models.efficientnet_b2(weights=effnetb2_weights)
+
+effnetb2
