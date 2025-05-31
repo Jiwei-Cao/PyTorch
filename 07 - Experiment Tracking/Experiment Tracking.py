@@ -571,3 +571,57 @@ train_dataloaders = {
     "data_10_percent": train_dataloader_10_percent,
     "data_20_percent": train_dataloader_20_percent
 }
+
+# %%time
+from going_modular.utils import save_model
+
+set_seeds()
+
+# Keep track of experiment numbers
+experiment_number = 0
+
+# Loop through each DataLoader
+for dataloader_name, train_dataloader in train_dataloaders.items():
+  # Loop through the epochs
+  for epochs in num_epochs:
+    # Loop through each model name and create a new model instance
+    for model_name in models:
+
+      # Print out info
+      experiment_number += 1
+      print(f"[INFO] Experiment number: {experiment_number}")
+      print(f"[INFO] Model: {model_name}")
+      print(f"[INFO] DataLoader: {dataloader_name}")
+      print(f"[INFO] Number of epochs: {epochs}")
+
+      if model_name == "effnetb0":
+        model = create_effnetb0()
+      else:
+        model = create_effnetb2()
+
+      # Create a new loss and optimizer for every model
+      loss_fn = nn.CrossEntropyLoss()
+      optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
+
+      # Train target model with target dataloader and track experiments
+      train(
+          model=model,
+          train_dataloader=train_dataloader,
+          test_dataloader=test_dataloader,
+          optimizer=optimizer,
+          loss_fn=loss_fn,
+          epochs=epochs,
+          device=device,
+          writer=create_writer(experiment_name=dataloader_name,
+                               model_name=model_name,
+                               extra=f"{epochs}_epochs")
+      )
+
+      # Save the model to file
+      save_filepath = f"07_{model_name}_{dataloader_name}_{epochs}_epochs.pth"
+      save_model(
+          model=model,
+          target_dir="models",
+          model_name=save_filepath
+      )
+      print("-"*50 + "\n")
