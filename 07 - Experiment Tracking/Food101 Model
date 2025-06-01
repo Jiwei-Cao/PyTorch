@@ -300,3 +300,30 @@ print(f"Number of classes: {len(class_names)}, class names: {class_names}")
 import torchvision.models
 effnetv2_s_weights = torchvision.models.EfficientNet_V2_S_Weights.DEFAULT
 effnetv2_s = torchvision.models.efficientnet_v2_s(weights=effnetv2_s_weights)
+
+OUT_FEATURES = len(class_names)
+
+def create_effnetb2():
+  weights = torchvision.models.EfficientNet_B2_Weights.DEFAULT
+  model = torchvision.models.efficientnet_b2(weights=weights).to(device)
+  dropout = 0.3
+  in_features = 1408
+
+  # Freeze the base model layers
+  for param in model.features.parameters():
+    param.requires_grad = False
+
+  # Set the seeds
+  set_seeds()
+
+  # Update the classifier head
+  model.classifier = nn.Sequential(
+      nn.Dropout(p=dropout, inplace=True),
+      nn.Linear(in_features=in_features,
+                out_features=OUT_FEATURES)
+  ).to(device)
+
+  # Set the model name
+  model.name = "effnetb2"
+  print(f"[INFO] Creating {model.name} feature extractor model")
+  return model
