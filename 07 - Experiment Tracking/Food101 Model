@@ -507,3 +507,21 @@ def create_dataloaders(train_dir: str,
   )
 
   return train_dataloader, test_dataloader, class_names
+
+normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], # values per colour channel [red, green, blue]
+                                 std=[0.229, 0.224, 0.225])
+
+# Create data augmentation transform
+data_aug_transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.TrivialAugmentWide(),
+    transforms.ToTensor(),
+    normalize
+])
+
+# Create a non-daga aug transform
+no_data_aug_transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+    normalize
+])
