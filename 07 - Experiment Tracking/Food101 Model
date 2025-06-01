@@ -295,3 +295,8 @@ print(f"Number of batches of size {BATCH_SIZE} in 10 percent training data: {len
 print(f"Number of batches of size {BATCH_SIZE} in 20 percent training data: {len(train_dataloader_20_percent)}")
 print(f"Number of batches of size {BATCH_SIZE} in testing data: {len(train_dataloader_10_percent)} (all experiments will use the same test set)")
 print(f"Number of classes: {len(class_names)}, class names: {class_names}")
+
+# Create models
+import torchvision.models
+effnetv2_s_weights = torchvision.models.EfficientNet_V2_S_Weights.DEFAULT
+effnetv2_s = torchvision.models.efficientnet_v2_s(weights=effnetv2_s_weights)
