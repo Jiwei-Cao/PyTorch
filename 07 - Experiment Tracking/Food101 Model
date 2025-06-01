@@ -259,3 +259,14 @@ test_dir = data_10_percent_path / "test"
 print(f"Training directory 10%: {train_dir_10_percent}")
 print(f"Training directory 20%: {train_dir_20_percent}")
 print(f"Testing directory: {test_dir}")
+
+# Create a transform to normalize data distribution to be inline with ImageNet
+normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], # values per colour channel [red, green, blue]
+                                 std=[0.229, 0.224, 0.225])
+
+# Create a transform pipeline
+simple_transform = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.ToTensor(),
+    normalize
+])
