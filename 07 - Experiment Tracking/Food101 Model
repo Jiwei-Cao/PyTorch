@@ -568,3 +568,6 @@ def view_dataloader_images(dataloader, n=10):
     plt.imshow(sample_scaled.permute(1, 2, 0)) # Resize for Matplotlib requirements
     plt.title(class_names[labels[i]])
     plt.axis(False)
+
+# Samples with data augmentation
+view_dataloader_images(train_dataloader_20_percent_with_aug)
