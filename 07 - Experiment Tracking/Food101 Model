@@ -377,7 +377,7 @@ models = ["effnetb2", "effnetv2_s"]
 train_dataloaders = {"data_10_percent": train_dataloader_10_percent,
                      "data_20_percent": train_dataloader_20_percent}
 
-%%time
+# %%time
 from going_modular.utils import save_model
 
 set_seeds()
@@ -585,7 +585,7 @@ train_dataloaders = {"data_20_percent_with_aug": train_dataloader_20_percent_wit
 # Create model
 models = ["effnetv2_s"]
 
-%%time
+# %%time
 
 set_seeds()
 
