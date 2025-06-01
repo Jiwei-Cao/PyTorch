@@ -668,3 +668,6 @@ test_data = torchvision.datasets.Food101(
     transform=simple_transform,
     download=True
 )
+
+# Check sample numbers
+len(train_data), len(test_data)
