@@ -574,3 +574,13 @@ view_dataloader_images(train_dataloader_20_percent_with_aug)
 
 # Samples without data augmentation
 view_dataloader_images(train_dataloader_20_percent_without_aug)
+
+# Run data aug vs no data aug experiments
+num_epochs = [5, 10]
+
+# Create dataloaders dictionary for various dataloaders
+train_dataloaders = {"data_20_percent_with_aug": train_dataloader_20_percent_with_aug,
+                     "data_20_percent_without_aug": train_dataloader_20_percent_without_aug}
+
+# Create model
+models = ["effnetv2_s"]
