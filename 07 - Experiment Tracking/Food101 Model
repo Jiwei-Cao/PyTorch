@@ -270,3 +270,28 @@ simple_transform = transforms.Compose([
     transforms.ToTensor(),
     normalize
 ])
+
+# Turn data into DataLoaders
+BATCH_SIZE = 32
+
+# Create 10% training and test DataLoaders
+train_dataloader_10_percent, test_dataloader, class_names = data_setup.create_dataloaders(
+    train_dir=train_dir_10_percent,
+    test_dir=test_dir,
+    transform=simple_transform,
+    batch_size=BATCH_SIZE
+)
+
+# Create 20% training and test DataLoaders
+train_dataloader_20_percent, test_dataloader, class_names = data_setup.create_dataloaders(
+    train_dir=train_dir_20_percent,
+    test_dir=test_dir,
+    transform=simple_transform,
+    batch_size=BATCH_SIZE
+)
+
+# Find the number of samples/batches per dataloader (using the same test_dataloader for both experiments)
+print(f"Number of batches of size {BATCH_SIZE} in 10 percent training data: {len(train_dataloader_10_percent)}")
+print(f"Number of batches of size {BATCH_SIZE} in 20 percent training data: {len(train_dataloader_20_percent)}")
+print(f"Number of batches of size {BATCH_SIZE} in testing data: {len(train_dataloader_10_percent)} (all experiments will use the same test set)")
+print(f"Number of classes: {len(class_names)}, class names: {class_names}")
