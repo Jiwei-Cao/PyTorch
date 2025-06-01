@@ -705,3 +705,17 @@ foodvision_big_model.classifier = nn.Sequential(
     nn.Dropout(p=0.2),
     nn.Linear(in_features=1280, out_features=101)
 ).to(device)
+
+# Train Model
+foodvision_big_results = train(
+    model=foodvision_big_model,
+    train_dataloader=train_dataloader_big,
+    test_dataloader=test_dataloader_big,
+    optimizer=torch.optim.Adam(params=foodvision_big_model.parameters(), lr=0.001),
+    loss_fn=torch.nn.CrossEntropyLoss(),
+    epochs=5,
+    device=device,
+    writer=create_writer(experiment_name="food101_all_data",
+                         model_name="foodvision_big",
+                         extra=f"{epochs}_epochs")
+)
