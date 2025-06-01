@@ -430,3 +430,7 @@ for dataloader_name, train_dataloader in train_dataloaders.items():
                  target_dir="models",
                  model_name=save_filepath)
       print("-"*50 + "\n")
+
+# Inspect model results
+# %load_ext tensorboard
+# %tensorboard --logdir runs
