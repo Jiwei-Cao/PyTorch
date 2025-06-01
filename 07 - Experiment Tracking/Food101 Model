@@ -719,3 +719,6 @@ foodvision_big_results = train(
                          model_name="foodvision_big",
                          extra=f"{epochs}_epochs")
 )
+
+# %load_ext tensorboard
+# %tensorboard --logdir runs
