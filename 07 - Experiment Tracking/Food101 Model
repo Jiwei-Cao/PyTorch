@@ -571,3 +571,6 @@ def view_dataloader_images(dataloader, n=10):
 
 # Samples with data augmentation
 view_dataloader_images(train_dataloader_20_percent_with_aug)
+
+# Samples without data augmentation
+view_dataloader_images(train_dataloader_20_percent_without_aug)
