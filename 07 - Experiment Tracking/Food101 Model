@@ -671,3 +671,23 @@ test_data = torchvision.datasets.Food101(
 
 # Check sample numbers
 len(train_data), len(test_data)
+
+# Create Food101 DataLoaders
+
+BATCH_SIZE = 512
+
+train_dataloader_big = torch.utils.data.DataLoader(
+    train_data,
+    shuffle=True,
+    batch_size=BATCH_SIZE,
+    num_workers=os.cpu_count(),
+    pin_memory=True # avoid copies of the data into and out of memory where possible
+)
+
+test_dataloader_big = torch.utils.data.DataLoader(
+    test_data,
+    shuffle=False,
+    batch_size=BATCH_SIZE,
+    num_workers=os.cpu_count(),
+    pin_memory=True # avoid copies of the data into and out of memory where possible
+)
