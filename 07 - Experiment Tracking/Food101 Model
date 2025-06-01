@@ -525,3 +525,27 @@ no_data_aug_transform = transforms.Compose([
     transforms.ToTensor(),
     normalize
 ])
+
+# Create train and test directories
+train_20_percent_dir = image_path / "train"
+test_20_percent_dir = image_path / "test"
+
+BATCH_SIZE = 32
+
+# Create train dataloader with data augmentation
+train_dataloader_20_percent_with_aug, test_dataloader_20_percent, class_names = create_dataloaders(
+    train_dir=train_20_percent_dir,
+    test_dir=test_20_percent_dir,
+    train_transform=data_aug_transform,
+    test_transform=no_data_aug_transform,
+    batch_size=BATCH_SIZE
+)
+
+# Create train dataloader without data augmentation
+train_dataloader_20_percent_without_aug, test_dataloader_20_percent, class_names = create_dataloaders(
+    train_dir=train_20_percent_dir,
+    test_dir=test_20_percent_dir,
+    train_transform=no_data_aug_transform,
+    test_transform=no_data_aug_transform,
+    batch_size=BATCH_SIZE
+)
