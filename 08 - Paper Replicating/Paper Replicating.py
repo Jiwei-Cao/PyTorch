@@ -99,3 +99,11 @@ print(f"Ouptut shape (single 1D sequence of patches): {embedding_layer_output_sh
 plt.imshow(image.permute(1, 2, 0))
 plt.title(class_names[label])
 _ = plt.axis(False)
+
+# Get the top row of the image
+image_permuted = image.permute(1, 2, 0)
+
+# Index to plot the top row of pixels
+patch_size = 16
+plt.figure(figsize=(patch_size, patch_size))
+plt.imshow(image_permuted[:patch_size, :, :])
