@@ -107,3 +107,25 @@ image_permuted = image.permute(1, 2, 0)
 patch_size = 16
 plt.figure(figsize=(patch_size, patch_size))
 plt.imshow(image_permuted[:patch_size, :, :])
+
+# Setup code to plot top rows as patches
+img_size = 224
+num_patches = img_size / patch_size
+assert img_size % patch_size == 0, "Image size must be divisible by patch size"
+print(f"Number of patches per row: {num_patches}\nPatch Size: {patch_size} pixels x {patch_size} pixels")
+
+# Create a series of subpots
+fig, axs = plt.subplots(
+    nrows=1,
+    ncols=img_size // patch_size,
+    sharex=True,
+    sharey=True,
+    figsize=(patch_size, patch_size)
+)
+
+# Iterate through number of patches in the top row
+for i, patch in enumerate(range(0, img_size, patch_size)):
+  axs[i].imshow(image_permuted[:patch_size, patch:patch+patch_size, :])
+  axs[i].set_xlabel(i+1) # set the patch label
+  axs[i].set_xticks([])
+  axs[i].set_yticks([])
