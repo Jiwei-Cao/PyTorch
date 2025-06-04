@@ -75,3 +75,13 @@ image.shape, label
 plt.imshow(image.permute(1, 2, 0))
 plt.title(class_names[label])
 _ = plt.axis(False)
+
+# Create example values
+height = 224 
+width = 224
+color_channels = 3
+patch_size = 16
+
+# Calculate the number of patches
+number_of_patches = int((height * width) / patch_size**2)
+number_of_patches
