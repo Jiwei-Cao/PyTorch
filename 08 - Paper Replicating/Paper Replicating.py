@@ -49,3 +49,15 @@ manual_transforms = transforms.Compose([
     transforms.Resize((IMG_SIZE, IMG_SIZE)),
     transforms.ToTensor()
 ])
+
+# Create dataloaders
+BATCH_SIZE = 32
+
+train_dataloader, test_dataloader, class_names = data_setup.create_dataloaders(
+    train_dir=train_dir,
+    test_dir=test_dir,
+    transform=manual_transforms,
+    batch_size=BATCH_SIZE
+)
+
+len(train_dataloader), len(test_dataloader), class_names
