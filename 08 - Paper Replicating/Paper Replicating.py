@@ -70,3 +70,8 @@ image, label = image_batch[0], label_batch[0]
 
 # View the single image and label shapes
 image.shape, label
+
+# Plot the image with matplotlib
+plt.imshow(image.permute(1, 2, 0))
+plt.title(class_names[label])
+_ = plt.axis(False)
