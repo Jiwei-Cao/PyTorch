@@ -94,3 +94,8 @@ embedding_layer_output_shape = (number_of_patches, patch_size**2 * color_channel
 
 print(f"Input shape (single 2D image): {embedding_layer_input_shape}")
 print(f"Ouptut shape (single 1D sequence of patches): {embedding_layer_output_shape}")
+
+# View a single image
+plt.imshow(image.permute(1, 2, 0))
+plt.title(class_names[label])
+_ = plt.axis(False)
