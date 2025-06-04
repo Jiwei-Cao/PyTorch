@@ -31,3 +31,7 @@ except:
 # Device agnostic code
 device = "cuda" if torch.cuda.is_available() else "cpu"
 device
+
+image_path = download_data(source="https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/data/pizza_steak_sushi.zip",
+                        destination="pizza_steak_sushi")
+image_path
