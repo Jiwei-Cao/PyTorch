@@ -35,3 +35,8 @@ device
 image_path = download_data(source="https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/data/pizza_steak_sushi.zip",
                         destination="pizza_steak_sushi")
 image_path
+
+train_dir = image_path / "train"
+test_dir = image_path / "test"
+
+train_dir, test_dir
