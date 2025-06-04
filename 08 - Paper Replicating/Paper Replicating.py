@@ -61,3 +61,12 @@ train_dataloader, test_dataloader, class_names = data_setup.create_dataloaders(
 )
 
 len(train_dataloader), len(test_dataloader), class_names
+
+# Get a batch of images
+image_batch, label_batch = next(iter(train_dataloader))
+
+# Get a single image and label from the batch
+image, label = image_batch[0], label_batch[0]
+
+# View the single image and label shapes
+image.shape, label
