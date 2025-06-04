@@ -40,3 +40,12 @@ train_dir = image_path / "train"
 test_dir = image_path / "test"
 
 train_dir, test_dir
+
+# Create image size 
+IMG_SIZE = 224 # comes from table 3 of the ViT paper
+
+# Create transforms pipeline
+manual_transforms = transforms.Compose([
+    transforms.Resize((IMG_SIZE, IMG_SIZE)),
+    transforms.ToTensor()
+])
