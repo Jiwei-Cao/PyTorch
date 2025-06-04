@@ -85,3 +85,12 @@ patch_size = 16
 # Calculate the number of patches
 number_of_patches = int((height * width) / patch_size**2)
 number_of_patches
+
+# Input shape 
+embedding_layer_input_shape = (height, width, color_channels)
+
+# Output shape
+embedding_layer_output_shape = (number_of_patches, patch_size**2 * color_channels)
+
+print(f"Input shape (single 2D image): {embedding_layer_input_shape}")
+print(f"Ouptut shape (single 1D sequence of patches): {embedding_layer_output_shape}")
