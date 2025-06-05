@@ -233,3 +233,36 @@ plt.figure(figsize=(22, 22))
 plt.imshow(single_flattened_feature_map.detach().numpy())
 plt.title(f"Flattened feature map shape: {single_flattened_feature_map.shape}")
 _ = plt.axis(False)
+
+# Create a ViT patch embedding pytorch module
+class PatchEmbedding(nn.Module):
+  # Initialise the layer with appropriate hyperparameters
+  def __init__(self,
+               in_channels: int=3,
+               patch_size: int=16,
+               embedding_dim: int=768):
+    super().__init__()
+
+    # Create a layer to turn an image into embedded patches
+    self.patcher = nn.Conv2d(in_channels=in_channels,
+                            out_channels=embedding_dim,
+                            kernel_size=patch_size,
+                            stride=patch_size,
+                            padding=0)
+    
+    # Create a layer to flatten feature map outputs of Conv2d
+    self.flatten = nn.Flatten(start_dim=2,
+                              end_dim=3)
+    
+  # Define a forward method to define the forward computation steps
+  def forward(self, x):
+    # Create assertion to check that inputs are the correct shape
+    image_resolution = x.shape[-1]
+    assert image_resolution % patch_size == 0, f"Input image size must be divisible by patch size, image shape: {image_resolution}, patch size: {patch_size}"
+
+    # Perform the forward pass
+    x_patched = self.patcher(x)
+    x_flattened = self.flatten(x_patched)
+    
+    # Make sure the returned sequence embedding dimensions are in the right order (batch_size, number_of_patches, embedding dimensions)
+    return x_flattened.permute(0, 2, 1)
