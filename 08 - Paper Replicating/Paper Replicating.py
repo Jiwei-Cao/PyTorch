@@ -266,3 +266,5 @@ class PatchEmbedding(nn.Module):
     
     # Make sure the returned sequence embedding dimensions are in the right order (batch_size, number_of_patches, embedding dimensions)
     return x_flattened.permute(0, 2, 1)
+
+set_seeds()
