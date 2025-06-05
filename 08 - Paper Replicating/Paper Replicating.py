@@ -200,3 +200,9 @@ for i, idx in enumerate(random_indexes):
 # Single feature map in tensor form
 single_feature_map = image_out_of_conv[:, 0, :, :]
 single_feature_map, single_feature_map.requires_grad
+
+# Flattening the patch embedding for the ViT transformer encoder
+flatten_layer = nn.Flatten(start_dim=2,
+                           end_dim=3)
+
+flatten_layer(image_out_of_conv), flatten_layer(image_out_of_conv).shape
