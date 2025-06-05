@@ -174,3 +174,7 @@ conv2d
 plt.imshow(image.permute(2, 1, 0))
 plt.title(class_names[label])
 _ = plt.axis(False)
+
+# Pass the image through the convolutional layer
+image_out_of_conv = conv2d(image.unsqueeze(0))
+print(image_out_of_conv.shape)
