@@ -178,3 +178,21 @@ _ = plt.axis(False)
 # Pass the image through the convolutional layer
 image_out_of_conv = conv2d(image.unsqueeze(0))
 print(image_out_of_conv.shape)
+
+# Plot random convolutional feature maps 
+import random
+random_indexes = random.sample(range(0, 758), k=5)
+print(f"Showing random convolutional feature maps from indexes: {random_indexes}")
+
+# Create plot
+fig, axs = plt.subplots(
+    nrows=1, 
+    ncols=5,
+    figsize=(patch_size, patch_size)
+)
+
+# Plot random image feature maps 
+for i, idx in enumerate(random_indexes):
+  image_conv_feature_map = image_out_of_conv[:, idx, :, :]
+  axs[i].imshow(image_conv_feature_map.squeeze().detach().numpy())
+  axs[i].set(xticklabels=[], yticklabels=[], xticks=[], yticks=[])
