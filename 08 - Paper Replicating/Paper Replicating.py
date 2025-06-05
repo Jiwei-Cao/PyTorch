@@ -169,3 +169,8 @@ conv2d = nn.Conv2d(
 )
 
 conv2d
+
+# View single image
+plt.imshow(image.permute(2, 1, 0))
+plt.title(class_names[label])
+_ = plt.axis(False)
