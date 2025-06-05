@@ -129,3 +129,32 @@ for i, patch in enumerate(range(0, img_size, patch_size)):
   axs[i].set_xlabel(i+1) # set the patch label
   axs[i].set_xticks([])
   axs[i].set_yticks([])
+
+# Plot whole image as patches
+fig, axs = plt.subplots(
+    nrows=img_size // patch_size,
+    ncols=img_size // patch_size,
+    figsize=(num_patches, num_patches),
+    sharex=True,
+    sharey=True
+)
+
+# Loop through height and width of image
+for i, patch_height in enumerate(range(0, img_size, patch_size)): 
+  for j, patch_width in enumerate(range(0, img_size, patch_size)):
+    # Plot the permuted image on the different axes
+    axs[i, j].imshow(image_permuted[patch_height:patch_height+patch_size,
+                                    patch_width:patch_width+patch_size,
+                                    :])
+    
+    # Set up label information for each subplot (patch)
+    axs[i, j].set_ylabel(i+1,
+                         rotation="horizontal",
+                         horizontalalignment="right",
+                         verticalalignment="center")
+    axs[i, j].set_xlabel(j+1)
+    axs[i, j].set_xticks([])
+    axs[i, j].set_yticks([])
+    axs[i, j].label_outer()
+
+fig.suptitle(f"{class_names[label]} -> Patchified", fontsize=14)
