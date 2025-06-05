@@ -206,3 +206,17 @@ flatten_layer = nn.Flatten(start_dim=2,
                            end_dim=3)
 
 flatten_layer(image_out_of_conv), flatten_layer(image_out_of_conv).shape
+
+# Put everything together
+plt.imshow(image.permute(2, 1, 0))
+plt.title(class_names[label])
+plt.axis(False)
+print(f"Original image shape: {image.shape}")
+
+# Turn image into feature maps
+image_out_of_conv = conv2d(image.unsqueeze(0))
+print(f"Image feature map shape: {image_out_of_conv.shape}")
+
+# Flatten the feature maps
+image_out_of_conv_flattened = flatten_layer(image_out_of_conv)
+print(f"Flattend image feature map shape: {image_out_of_conv_flattened.shape}")
