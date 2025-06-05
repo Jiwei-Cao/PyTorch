@@ -224,3 +224,12 @@ print(f"Flattend image feature map shape: {image_out_of_conv_flattened.shape}")
 # Rearrange output of flattened layer
 image_out_of_conv_flattened_permuted = image_out_of_conv_flattened.permute(0, 2, 1)
 image_out_of_conv_flattened_permuted, image_out_of_conv_flattened_permuted.shape
+
+# Single flattened feature map
+single_flattened_feature_map = image_out_of_conv_flattened_permuted[:, :, 0]
+
+# Plot the flattened feature map visually
+plt.figure(figsize=(22, 22))
+plt.imshow(single_flattened_feature_map.detach().numpy())
+plt.title(f"Flattened feature map shape: {single_flattened_feature_map.shape}")
+_ = plt.axis(False)
