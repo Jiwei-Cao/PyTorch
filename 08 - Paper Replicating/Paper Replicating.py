@@ -158,3 +158,14 @@ for i, patch_height in enumerate(range(0, img_size, patch_size)):
     axs[i, j].label_outer()
 
 fig.suptitle(f"{class_names[label]} -> Patchified", fontsize=14)
+
+# Create conv2d layer to turn image into patches of learnable feature maps (embeddings)
+conv2d = nn.Conv2d(
+    in_channels=3,
+    out_channels=768,
+    kernel_size=patch_size,
+    stride=patch_size,
+    padding=0
+)
+
+conv2d
