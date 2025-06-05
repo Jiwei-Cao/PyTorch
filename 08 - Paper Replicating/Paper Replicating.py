@@ -196,3 +196,7 @@ for i, idx in enumerate(random_indexes):
   image_conv_feature_map = image_out_of_conv[:, idx, :, :]
   axs[i].imshow(image_conv_feature_map.squeeze().detach().numpy())
   axs[i].set(xticklabels=[], yticklabels=[], xticks=[], yticks=[])
+
+# Single feature map in tensor form
+single_feature_map = image_out_of_conv[:, 0, :, :]
+single_feature_map, single_feature_map.requires_grad
