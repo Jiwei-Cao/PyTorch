@@ -220,3 +220,7 @@ print(f"Image feature map shape: {image_out_of_conv.shape}")
 # Flatten the feature maps
 image_out_of_conv_flattened = flatten_layer(image_out_of_conv)
 print(f"Flattend image feature map shape: {image_out_of_conv_flattened.shape}")
+
+# Rearrange output of flattened layer
+image_out_of_conv_flattened_permuted = image_out_of_conv_flattened.permute(0, 2, 1)
+image_out_of_conv_flattened_permuted, image_out_of_conv_flattened_permuted.shape
