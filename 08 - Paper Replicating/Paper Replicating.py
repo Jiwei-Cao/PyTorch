@@ -301,3 +301,8 @@ patch_embedded_image_with_class_embedding = torch.cat((class_token, patch_embedd
 
 print(patch_embedded_image_with_class_embedding)
 print(f"Sequence of patch embeddings with class token prepended shape: {patch_embedded_image_with_class_embedding} -> (batch_size, class_token + number_of_patches, embedding_dim)")
+
+# Create the position embedding
+
+# View the sequence of patch embeddings with the prepended class embedding
+patch_embedded_image_with_class_embedding, patch_embedded_image_with_class_embedding.shape
