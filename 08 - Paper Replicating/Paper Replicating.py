@@ -306,3 +306,17 @@ print(f"Sequence of patch embeddings with class token prepended shape: {patch_em
 
 # View the sequence of patch embeddings with the prepended class embedding
 patch_embedded_image_with_class_embedding, patch_embedded_image_with_class_embedding.shape
+
+# Calculate N (number_of_patches)
+number_of_patches = int((height * width) / patch_size**2)
+
+# Get the embedding dimension
+embedding_dimension = patch_embedded_image_with_class_embedding.shape[-1]
+embedding_dimension
+
+# Create the learnable 1D position embedding
+position_embedding = nn.Parameter(torch.ones(1, 
+                                             number_of_patches+1,
+                                             embedding_dimension),
+                                  requires_grad=True)
+position_embedding, position_embedding.shape
