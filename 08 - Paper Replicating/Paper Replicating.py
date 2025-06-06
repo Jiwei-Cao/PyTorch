@@ -279,3 +279,7 @@ print(f"Input image size: {image.unsqueeze(0).shape}")
 patch_embedded_image = patchify(image.unsqueeze(0))
 print(f"Output patch embedding sequence shape: {patch_embedded_image.shape}")
 
+rand_image_tensor = torch.randn(1, 3, 224, 224)
+rand_image_tensor_bad = torch.rand(1, 3, 250, 250)
+
+patchify(rand_image_tensor)
