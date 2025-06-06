@@ -320,3 +320,8 @@ position_embedding = nn.Parameter(torch.ones(1,
                                              embedding_dimension),
                                   requires_grad=True)
 position_embedding, position_embedding.shape
+
+# Add the position embedding to the patch and class token embedding
+patch_and_position_embedding = patch_embedded_image_with_class_embedding + position_embedding
+print(patch_and_position_embedding)
+print(f"Patch and position embedding shape: {patch_and_position_embedding.shape}")
