@@ -294,3 +294,10 @@ batch_size, embedding_dimension
 class_token = nn.Parameter(torch.randn(batch_size, 1, embedding_dimension),
                            requires_grad=True)
 class_token.shape
+
+# Add the class token embedding to the front of the patch embedding
+patch_embedded_image_with_class_embedding = torch.cat((class_token, patch_embedded_image),
+                                                      dim=1)
+
+print(patch_embedded_image_with_class_embedding)
+print(f"Sequence of patch embeddings with class token prepended shape: {patch_embedded_image_with_class_embedding} -> (batch_size, class_token + number_of_patches, embedding_dim)")
