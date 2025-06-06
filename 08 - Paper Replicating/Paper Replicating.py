@@ -284,8 +284,13 @@ rand_image_tensor_bad = torch.rand(1, 3, 250, 250)
 
 patchify(rand_image_tensor)
 
-# Creating Class token embedding
+# Creating class token embedding
 batch_size = patch_embedded_image.shape[0]
 embedding_dimension = patch_embedded_image.shape[-1]
 
 batch_size, embedding_dimension
+
+# Create class token embedding as a learnable parameter
+class_token = nn.Parameter(torch.randn(batch_size, 1, embedding_dimension),
+                           requires_grad=True)
+class_token.shape
