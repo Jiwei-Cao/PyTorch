@@ -277,4 +277,5 @@ patchify = PatchEmbedding(in_channels=3,
 # Pass a single image through the patch embedding layer
 print(f"Input image size: {image.unsqueeze(0).shape}")
 patch_embedded_image = patchify(image.unsqueeze(0))
-print(f"Ouptut patch embedding sequence shape: {patch_embedded_image.shape}")
+print(f"Output patch embedding sequence shape: {patch_embedded_image.shape}")
+
