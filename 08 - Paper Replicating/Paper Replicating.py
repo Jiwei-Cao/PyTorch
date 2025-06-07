@@ -325,3 +325,15 @@ position_embedding, position_embedding.shape
 patch_and_position_embedding = patch_embedded_image_with_class_embedding + position_embedding
 print(patch_and_position_embedding)
 print(f"Patch and position embedding shape: {patch_and_position_embedding.shape}")
+
+# Image into flattened sequence embedding (all in one go)
+set_seeds()
+
+# Print shapes of the original image tensor and get the image dimensions
+print(f"Image tensor shape: {image.shape}")
+height, width = image.shape[1], image.shape[2]
+
+# Get image tensor and add a batch dimension
+x = image.unsqueeze(0)
+print(f"Input image shape: {x.shape}")
+
