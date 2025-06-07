@@ -365,3 +365,30 @@ position_embedding = nn.Parameter(torch.ones(1, number_of_patches+1, embedding_d
 # Add the position embedding to patch embedding with class token
 patch_and_position_embedding = patch_embedding_class_token + position_embedding
 print(f"Patch and position embedding shape: {patch_and_position_embedding.shape}")
+
+# Multihead self-attention (MSA block)
+class MultiHeadSelfAttentionBlock(nn.Module):
+  """Creates a multi-head self-attention block (MSA Block)
+  """
+  def __init__(self,
+               embedding_dim:int=768,
+               num_heads:int=12,
+               attn_dropout:int=0):
+    
+    # Create the norm layer (LN)
+    self.layer_norm = nn.LayerNorm(normalized_shape=embedding_dim)
+
+    # Create multihead attention (MSA) layer
+    self.multihead_attn = nn.MultiheadAttention(embed_dim=embedding_dim,
+                                                num_heads=num_heads,
+                                                dropout=attn_dropout,
+                                                batch_first=True) # (batch, seq, feature) -> (batch, number_of_patches, embedding_dimension)
+  
+  def forward(self, x):
+    x = self.layer_norm(x)
+    attn_output, _ = self.multihead_attn(query=x,
+                                         key=x,
+                                         value=x,
+                                         need_weights=False)
+    
+    return attn_output
