@@ -337,3 +337,8 @@ height, width = image.shape[1], image.shape[2]
 x = image.unsqueeze(0)
 print(f"Input image shape: {x.shape}")
 
+# Create patch embedding layer
+patch_embedding_layer = PatchEmbedding(in_channels=3,
+                                       patch_size=patch_size,
+                                       embedding_dim=768)
+
