@@ -353,3 +353,15 @@ class_token = nn.Parameter(torch.ones(batch_size, 1, embedding_dimension),
                            requires_grad=True)
 print(f"Class token embedding shape: {class_token.shape}")
 
+# Prepend the class token embedding to patch embedding
+patch_embedding_class_token = torch.cat((class_token, patch_embedding), dim=1)
+print(f"Patch embedding with class token shape: {patch_embedding_class_token.shape}")
+
+# Create position embedding
+number_of_patches = int((height*width) / patch_size**2)
+position_embedding = nn.Parameter(torch.ones(1, number_of_patches+1, embedding_dimension),
+                                  requires_grad=True)
+
+# Add the position embedding to patch embedding with class token
+patch_and_position_embedding = patch_embedding_class_token + position_embedding
+print(f"Patch and position embedding shape: {patch_and_position_embedding.shape}")
