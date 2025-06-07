@@ -342,3 +342,14 @@ patch_embedding_layer = PatchEmbedding(in_channels=3,
                                        patch_size=patch_size,
                                        embedding_dim=768)
 
+# Pass input image through PatchEmbedding
+patch_embedding = patch_embedding_layer(x)
+print(f"Patch embedding shape: {patch_embedding.shape}")
+
+# Create class token embedding
+batch_size = patch_embedding.shape[0]
+embedding_dimension = patch_embedding.shape[-1]
+class_token = nn.Parameter(torch.ones(batch_size, 1, embedding_dimension),
+                           requires_grad=True)
+print(f"Class token embedding shape: {class_token.shape}")
+
