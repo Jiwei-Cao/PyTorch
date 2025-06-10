@@ -402,3 +402,28 @@ multihead_self_attention_block = MultiHeadSelfAttentionBlock(embedding_dim=768,
 patched_image_through_msa_block = multihead_self_attention_block(patch_and_position_embedding)
 print(f"Input shape of MSA block: {patch_and_position_embedding.shape}")
 print(f"Output shape of MSA block: {patched_image_through_msa_block.shape}")
+
+# Multilayer perceptron (MLP)
+class MLPBlock(nn.Module):
+  def __init__(self,
+               embedding_dim:int=768,
+               mlp_size:int=3072,
+               dropout:int=0.1):
+    super().__init__()
+
+    # Create the normal layer (LN)
+    self.layer_norm = nn.LayerNorm(normalized_shape=embedding_dim)
+
+    # Create the MLP
+    self.mlp = nn.Sequential(
+        nn.Linear(in_features=embedding_dim,
+                  out_features=mlp_size),
+        nn.GELU(),
+        nn.Dropout(p=dropout),
+        nn.Linear(in_features=mlp_size,
+                  out_features=embedding_dim),
+        nn.Dropout(p=dropout)
+    )
+
+  def forward(self, x):
+    return self.mlp(self.layer_norm(x))
