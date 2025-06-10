@@ -471,3 +471,18 @@ summary(model=transformer_encoder_block,
         col_names=["input_size", "output_size", "num_params", "trainable"],
         col_width=20,
         row_settings=["var_names"])
+
+# Transformer encoder layer with in-built pytorch layers
+torch_transformer_encoder_layer = nn.TransformerEncoderLayer(d_model=768,
+                                                             nhead=12,
+                                                             dim_feedforward=3072,
+                                                             dropout=0.1,
+                                                             activation="gelu",
+                                                             batch_first=True,
+                                                             norm_first=True)
+
+summary(model=torch_transformer_encoder_layer,
+        input_size=(1, 197, 768),
+        col_names=["input_size", "output_size", "num_params", "trainable"],
+        col_width=20,
+        row_settings=["var_names"])
