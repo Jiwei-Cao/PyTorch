@@ -437,3 +437,28 @@ mlp_block = MLPBlock(embedding_dim=768,
 patched_image_through_mlp_block = mlp_block(patched_image_through_msa_block)
 print(f"Input shape of MLP block: {patched_image_through_mlp_block.shape}")
 print(f"Output shape of MLP block: {patched_image_through_mlp_block.shape}")
+
+# Transformer encoder 
+class TransformerEncoderBlock(nn.Module):
+  def __init__(self,
+               embedding_dim:int=768,
+               num_heads:int=12,
+               mlp_size:int=3072,
+               mlp_dropout:int=0.1,
+               attn_dropout:int=0):
+    super().__init__()
+
+    # MSA block
+    self.msa_block = MultiHeadSelfAttentionBlock(embedding_dim=embedding_dim,
+                                                 num_heads=num_heads,
+                                                 attn_dropout=attn_dropout)
+    
+    # MLP block
+    self.mlp_block = MLPBlock(embedding_dim=embedding_dim,
+                              mlp_size=mlp_size,
+                              dropout=mlp_dropout)
+  
+  def forward(self, x):
+    x = self.msa_block(x) + x
+    x = self.mlp_block(x) + x
+    return x
