@@ -462,3 +462,12 @@ class TransformerEncoderBlock(nn.Module):
     x = self.msa_block(x) + x
     x = self.mlp_block(x) + x
     return x
+  
+# Instance of TransformerEncoderBlock()
+transformer_encoder_block = TransformerEncoderBlock()
+
+summary(model=transformer_encoder_block,
+        input_size=(1, 197, 768),
+        col_names=["input_size", "output_size", "num_params", "trainable"],
+        col_width=20,
+        row_settings=["var_names"])
