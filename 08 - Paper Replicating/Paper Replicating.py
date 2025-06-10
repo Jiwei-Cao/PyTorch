@@ -393,3 +393,12 @@ class MultiHeadSelfAttentionBlock(nn.Module):
     
     return attn_output
   
+# Create an instance MSA block
+multihead_self_attention_block = MultiHeadSelfAttentionBlock(embedding_dim=768,
+                                                             num_heads=12,
+                                                             attn_dropout=0)
+
+# Pass the patch and position image embedding sequence through MSA block
+patched_image_through_msa_block = multihead_self_attention_block(patch_and_position_embedding)
+print(f"Input shape of MSA block: {patch_and_position_embedding.shape}")
+print(f"Output shape of MSA block: {patched_image_through_msa_block.shape}")
