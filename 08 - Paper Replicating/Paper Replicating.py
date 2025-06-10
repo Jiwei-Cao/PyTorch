@@ -427,3 +427,13 @@ class MLPBlock(nn.Module):
 
   def forward(self, x):
     return self.mlp(self.layer_norm(x))
+  
+# Create an instance of MLPBlock
+mlp_block = MLPBlock(embedding_dim=768,
+                     mlp_size=3072,
+                     dropout=0.1)
+
+# Pass output of the MSABlock through MLPBlock
+patched_image_through_mlp_block = mlp_block(patched_image_through_msa_block)
+print(f"Input shape of MLP block: {patched_image_through_mlp_block.shape}")
+print(f"Output shape of MLP block: {patched_image_through_mlp_block.shape}")
