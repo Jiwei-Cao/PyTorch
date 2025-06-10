@@ -563,3 +563,14 @@ class ViT(nn.Module):
     x = self.classifier(x[:, 0])
 
     return x
+  
+set_seeds()
+
+# Create a random image tensor with same shape as a single image
+random_image_tensor = torch.randn(1, 3, 224, 224)
+
+# Create an instance of ViT 
+vit = ViT(num_classes=len(class_names))
+
+# Pass the random image tensor to our ViT instance
+vit(random_image_tensor)
