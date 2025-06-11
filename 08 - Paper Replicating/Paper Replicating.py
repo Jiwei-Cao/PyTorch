@@ -602,3 +602,6 @@ results = engine.train(
     loss_fn=loss_fn,
     device=device
 )
+
+# Plotting loss curves for the model
+plot_loss_curves(results)
