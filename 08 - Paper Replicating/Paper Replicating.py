@@ -630,3 +630,22 @@ train_dataloader_pretrained, test_dataloader_pretrained, class_names = data_setu
                                                                                                      test_dir=test_dir,
                                                                                                      transform=vit_transforms,
                                                                                                      batch_size=32)
+
+# Train feature extractor ViT model
+
+# Create optimizer and loss function
+optimizer = torch.optim.Adam(params=pretrained_vit.parameters(),
+                             lr=1e-3)
+loss_fn = torch.nn.CrossEntropyLoss()
+
+# Train the classifier head of pretrained ViT
+set_seeds()
+pretrained_vit_results = engine.train(
+    model=pretrained_vit,
+    train_dataloader=train_dataloader_pretrained,
+    test_dataloader=test_dataloader_pretrained,
+    optimizer=optimizer,
+    loss_fn=loss_fn,
+    epochs=10,
+    device=device
+)
