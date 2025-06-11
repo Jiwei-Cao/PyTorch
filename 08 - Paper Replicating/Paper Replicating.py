@@ -581,3 +581,11 @@ summary(model=ViT(num_classes=len(class_names)),
         col_names=["input_size", "output_size", "num_params", "trainable"],
         col_width=20,
         row_settings=["var_names"])
+
+# Initialising optimizer and loss function
+optimizer = torch.optim.Adam(vit.parameters(),
+                             lr=1e-3,
+                             betas=(0.9, 0.999),
+                             weight_decay=0.1)
+
+loss_fn = torch.nn.CrossEntropyLoss()
