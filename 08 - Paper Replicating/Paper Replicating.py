@@ -589,3 +589,16 @@ optimizer = torch.optim.Adam(vit.parameters(),
                              weight_decay=0.1)
 
 loss_fn = torch.nn.CrossEntropyLoss()
+
+# Training the ViT model
+set_seeds()
+
+results = engine.train(
+    model=vit.to(device),
+    train_dataloader=train_dataloader,
+    test_dataloader=test_dataloader,
+    epochs=10,
+    optimizer=optimizer,
+    loss_fn=loss_fn,
+    device=device
+)
