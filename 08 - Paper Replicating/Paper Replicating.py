@@ -618,3 +618,9 @@ for parameter in pretrained_vit.parameters():
 
 # Update the classifier head
 pretrained_vit.heads = nn.Linear(in_features=768, out_features=len(class_names)).to(device)
+
+# Preparing data for the pretrained Vit
+
+# Get automatic transforms from pretrained Vit Weights
+vit_transforms = pretrained_vit_weights.transforms()
+vit_transforms
