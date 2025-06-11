@@ -651,3 +651,10 @@ pretrained_vit_results = engine.train(
 )
 
 plot_loss_curves(pretrained_vit_results)
+
+# Save the best performing Vit model
+from going_modular import utils
+
+utils.save_model(model=pretrained_vit, 
+                 target_dir="models",
+                 model_name="08_pretrained_vit_feature_extractor_pizza_steak_sushi.pth")
