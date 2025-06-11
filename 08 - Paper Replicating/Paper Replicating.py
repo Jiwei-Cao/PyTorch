@@ -649,3 +649,5 @@ pretrained_vit_results = engine.train(
     epochs=10,
     device=device
 )
+
+plot_loss_curves(pretrained_vit_results)
