@@ -605,3 +605,16 @@ results = engine.train(
 
 # Plotting loss curves for the model
 plot_loss_curves(results)
+
+# Using a pretrained ViT
+pretrained_vit_weights = torchvision.models.ViT_B_16_Weights.DEFAULT
+
+# ViT model instance with pretrained weights
+pretrained_vit = torchvision.models.vit_b_16(weights=pretrained_vit_weights).to(device)
+
+# Freeze the base parameters
+for parameter in pretrained_vit.parameters():
+  parameter.requires_grad = False
+
+# Update the classifier head
+pretrained_vit.heads = nn.Linear(in_features=768, out_features=len(class_names)).to(device)
