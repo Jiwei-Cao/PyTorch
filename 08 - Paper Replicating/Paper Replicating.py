@@ -624,3 +624,9 @@ pretrained_vit.heads = nn.Linear(in_features=768, out_features=len(class_names))
 # Get automatic transforms from pretrained Vit Weights
 vit_transforms = pretrained_vit_weights.transforms()
 vit_transforms
+
+# Setup dataloaders
+train_dataloader_pretrained, test_dataloader_pretrained, class_names = data_setup.create_dataloaders(train_dir=train_dir,
+                                                                                                     test_dir=test_dir,
+                                                                                                     transform=vit_transforms,
+                                                                                                     batch_size=32)
