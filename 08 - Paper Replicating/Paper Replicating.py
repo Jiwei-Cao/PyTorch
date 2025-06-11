@@ -652,7 +652,7 @@ pretrained_vit_results = engine.train(
 
 plot_loss_curves(pretrained_vit_results)
 
-# Save the best performing Vit model
+# Save the best performing ViT model
 from going_modular import utils
 
 utils.save_model(model=pretrained_vit, 
