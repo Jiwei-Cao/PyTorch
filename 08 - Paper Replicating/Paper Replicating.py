@@ -662,3 +662,9 @@ utils.save_model(model=pretrained_vit,
 # Get the model size in bytes, then convert to megabytes
 pretrained_vit_model_size = Path("models/08_pretrained_vit_feature_extractor_pizza_steak_sushi.pth").stat().st_size // (1024*1024)
 print(f"Pretrained ViT feature extractor model size: {pretrained_vit_model_size} MB")
+
+from pathlib import Path
+
+# Get the model size in bytes, then convert to megabytes
+pretrained_vit_model_size = Path("models/08_pretrained_vit_feature_extractor_pizza_steak_sushi.pth").stat().st_size // (1024*1024)
+print(f"Pretrained ViT feature extractor model size: {pretrained_vit_model_size} MB")
