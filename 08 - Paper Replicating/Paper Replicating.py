@@ -680,3 +680,7 @@ with open(custom_image_path, "wb") as f:
     request = requests.get("https://raw.githubusercontent.com/Jiwei-Cao/PyTorch/main/06%20-%20Transfer%20Learning/sushi-steak.jpg")
     print(f"Downloading {custom_image_path}...")
     f.write(request.content)
+
+pred_and_plot_image(model=pretrained_vit,
+                    image_path=custom_image_path,
+                    class_names=class_names)
