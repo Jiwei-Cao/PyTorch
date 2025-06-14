@@ -139,3 +139,9 @@ from going_modular import utils
 utils.save_model(model=effnetb2,
                  target_dir="models",
                  model_name="09_pretrained_effnetb2_feature_extractor_pizza_steak_sushi_20_percent.pth")
+
+# Inspecting the size of the EffNetB2 feature extractor
+from pathlib import Path
+
+pretrained_effnetb2_model_size = Path("models/09_pretrained_effnetb2_feature_extractor_pizza_steak_sushi_20_percent.pth").stat().st_size / (1024 * 1024)
+print(f"Pretrained EffNetB2 feature extractor model size: {round(pretrained_effnetb2_model_size, 2)}MB")
