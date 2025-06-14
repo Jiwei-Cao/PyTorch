@@ -27,3 +27,6 @@ except:
 #   !rm -rf PyTorch
   from going_modular import data_setup, engine
   from helper_functions import download_data, set_seeds, plot_loss_curves
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+device
