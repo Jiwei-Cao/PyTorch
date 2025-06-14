@@ -198,3 +198,17 @@ train_dataloader_vit, test_dataloader_vit, class_names = data_setup.create_datal
                                                                                        transform=vit_transforms,
                                                                                        batch_size=32)
 len(train_dataloader_vit), len(test_dataloader_vit), class_names
+
+# Training the ViT feature extractor
+optimizer = torch.optim.Adam(params=vit.parameters())
+loss_fn = torch.nn.CrossEntropyLoss()
+
+# Train ViT feature extractor 
+set_seeds()
+vit_results = engine.train(model=vit,
+                           train_dataloader=train_dataloader_vit,
+                           test_dataloader=test_dataloader_vit,
+                           optimizer=optimizer,
+                           loss_fn=loss_fn,
+                           epochs=10,
+                           device=device)
