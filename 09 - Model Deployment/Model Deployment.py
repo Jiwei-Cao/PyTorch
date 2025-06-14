@@ -64,3 +64,9 @@ for param in effnetb2.parameters():
 #         row_settings=["var_names"])
 
 effnetb2.classifier
+
+set_seeds()
+effnetb2.classifier = nn.Sequential(
+    nn.Dropout(p=0.3, inplace=True),
+    nn.Linear(in_features=1408, out_features=3)
+)
