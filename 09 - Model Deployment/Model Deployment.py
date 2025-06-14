@@ -183,3 +183,11 @@ def create_vit_model(num_classes:int=3,
   )
 
   return model, transforms
+
+vit, vit_transforms = create_vit_model()
+
+# summary(model=vit,
+#         input_size=(1, 3, 224, 224),
+#         col_names=["input_size", "output_size", "num_params", "trainable"],
+#         col_width=20,
+#         row_settings=["var_names"])
