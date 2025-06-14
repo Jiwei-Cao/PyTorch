@@ -159,3 +159,7 @@ effnetb2_stats = {"test_loss": effnetb2_results["test_loss"][-1],
                   "model_size (MB)": pretrained_effnetb2_model_size}
 
 effnetb2_stats
+
+# Creating a ViT feature extractor
+vit = torchvision.models.vit_b_16()
+vit.heads
