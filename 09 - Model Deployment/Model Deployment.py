@@ -230,3 +230,10 @@ print(f"Pretrained ViT feature extractor model size: {round(pretrained_vit_model
 # Count number of parameters in Vit
 vit_total_params = sum(torch.numel(param) for param in vit.parameters())
 vit_total_params
+
+# Create ViT statistics dictionary
+vit_stats = {"test_loss": vit_results["test_loss"][-1],
+             "test_acc": vit_results["test_acc"][-1],
+             "number_of_parameters": vit_total_params,
+             "model_size (MB)": pretrained_vit_model_size}
+vit_stats
