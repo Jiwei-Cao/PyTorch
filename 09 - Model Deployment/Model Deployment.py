@@ -129,3 +129,6 @@ effnetb2_results = engine.train(model=effnetb2.to(device),
                                 loss_fn=loss_fn,
                                 epochs=10,
                                 device=device)
+
+# Inspecting EffNetB2 loss curves
+plot_loss_curves(effnetb2_results)
