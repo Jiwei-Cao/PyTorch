@@ -145,3 +145,9 @@ from pathlib import Path
 
 pretrained_effnetb2_model_size = Path("models/09_pretrained_effnetb2_feature_extractor_pizza_steak_sushi_20_percent.pth").stat().st_size / (1024 * 1024)
 print(f"Pretrained EffNetB2 feature extractor model size: {round(pretrained_effnetb2_model_size, 2)}MB")
+
+# Collecting EffNetB2 feature extractor stats
+
+# Count number of parameters in EffNetB2
+effnetb2_total_params = sum(torch.numel(param) for param in effnetb2.parameters())
+effnetb2_total_params
