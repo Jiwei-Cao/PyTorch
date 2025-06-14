@@ -56,3 +56,11 @@ effnetb2 = torchvision.models.efficientnet_b2(weights=effnetb2_weights)
 # Freeze base layers in the model
 for param in effnetb2.parameters():
   param.requires_grad = False
+
+# summary(model=effnetb2,
+#         input_size=(1, 3, 224, 224),
+#         col_names=["input_size", "output_size", "num_params", "trainable"],
+#         col_width=20,
+#         row_settings=["var_names"])
+
+effnetb2.classifier
