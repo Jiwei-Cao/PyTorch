@@ -100,3 +100,11 @@ def create_effnetb2_model(num_classes:int=3,
 
 effnetb2, effnetb2_transforms = create_effnetb2_model(num_classes=3,
                                                       seed=42)
+
+# summary(model=effnetb2,
+#         input_size=(1, 3, 224, 224),
+#         col_names=["input_size", "output_size", "num_params", "trainable"],
+#         col_width=20,
+#         row_settings=["var_names"])
+
+effnetb2_transforms
