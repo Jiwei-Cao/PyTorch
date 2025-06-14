@@ -41,3 +41,18 @@ train_dir = data_20_percent_path / "train"
 test_dir = data_20_percent_path / "test"
 
 train_dir, test_dir
+
+# Creating an EffNetB2 feature extractor
+
+# Pretrained EffNetB2 weights
+effnetb2_weights = torchvision.models.EfficientNet_B2_Weights.DEFAULT
+
+# Get EffNetB2 transforms
+effnetb2_transforms = effnetb2_weights.transforms()
+
+# Setup pretrained model instance
+effnetb2 = torchvision.models.efficientnet_b2(weights=effnetb2_weights)
+
+# Freeze base layers in the model
+for param in effnetb2.parameters():
+  param.requires_grad = False
