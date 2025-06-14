@@ -116,3 +116,16 @@ train_dataloader_effnetb2, test_dataloader_effnetb2, class_names = data_setup.cr
                                                                                                  batch_size=32)
 
 len(train_dataloader_effnetb2), len(test_dataloader_effnetb2), class_names
+
+# Training the EffNetB2 feature extractor
+loss_fn = torch.nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(params=effnetb2.parameters(), 
+                             lr=1e-3)
+set_seeds()
+effnetb2_results = engine.train(model=effnetb2.to(device),
+                                train_dataloader=train_dataloader_effnetb2,
+                                test_dataloader=test_dataloader_effnetb2,
+                                optimizer=optimizer,
+                                loss_fn=loss_fn,
+                                epochs=10,
+                                device=device)
