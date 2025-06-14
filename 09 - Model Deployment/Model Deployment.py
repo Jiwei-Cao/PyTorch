@@ -35,3 +35,9 @@ device
 data_20_percent_path = download_data(source="https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/data/pizza_steak_sushi_20_percent.zip",
                                      destination="pizza_steak_sushi_20_percent")
 data_20_percent_path
+
+# Setup train and test paths
+train_dir = data_20_percent_path / "train"
+test_dir = data_20_percent_path / "test"
+
+train_dir, test_dir
