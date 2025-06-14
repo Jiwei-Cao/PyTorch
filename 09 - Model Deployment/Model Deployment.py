@@ -132,3 +132,10 @@ effnetb2_results = engine.train(model=effnetb2.to(device),
 
 # Inspecting EffNetB2 loss curves
 plot_loss_curves(effnetb2_results)
+
+# Saving EffNetB2 feature extractor
+from going_modular import utils
+
+utils.save_model(model=effnetb2,
+                 target_dir="models",
+                 model_name="09_pretrained_effnetb2_feature_extractor_pizza_steak_sushi_20_percent.pth")
