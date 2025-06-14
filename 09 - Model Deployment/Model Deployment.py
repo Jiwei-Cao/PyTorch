@@ -70,3 +70,30 @@ effnetb2.classifier = nn.Sequential(
     nn.Dropout(p=0.3, inplace=True),
     nn.Linear(in_features=1408, out_features=3)
 )
+
+# summary(model=effnetb2,
+#         input_size=(1, 3, 224, 224),
+#         col_names=["input_size", "output_size", "num_params", "trainable"],
+#         col_width=20,
+#         row_settings=["var_names"])
+
+# Creating a function to make an EffNetB2 feature extractor
+def create_effnetb2_model(num_classes:int=3,
+                          seed:int=42):
+  # Create EffNetB2 pretrained weights, transform and model
+  weights = torchvision.models.EfficientNet_B2_Weights.DEFAULT
+  transform = weights.transforms()
+  model = torchvision.models.efficientnet_b2(weights=weights)
+
+  # Freeze all layers in the base model
+  for param in model.parameters():
+    param.requires_grad = False
+
+  # Change classifier head 
+  torch.manual_seed(seed)
+  model.classifier = nn.Sequential(
+      nn.Dropout(p=0.3, inplace=True),
+      nn.Linear(in_features=1408, out_features=num_classes)
+  )
+
+  return model, transform
