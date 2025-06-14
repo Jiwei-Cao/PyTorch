@@ -30,3 +30,8 @@ except:
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 device
+
+# Download pizza, steak and sushi images from github
+data_20_percent_path = download_data(source="https://github.com/Jiwei-Cao/PyTorch/raw/refs/heads/main/data/pizza_steak_sushi_20_percent.zip",
+                                     destination="pizza_steak_sushi_20_percent")
+data_20_percent_path
