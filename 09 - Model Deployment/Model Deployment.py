@@ -108,3 +108,9 @@ effnetb2, effnetb2_transforms = create_effnetb2_model(num_classes=3,
 #         row_settings=["var_names"])
 
 effnetb2_transforms
+
+# Setup dataloaders
+train_dataloader_effnetb2, test_dataloader_effnetb2, class_names = data_setup.create_dataloaders(train_dir=train_dir,
+                                                                                                 test_dir=test_dir,
+                                                                                                 transform=effnetb2_transforms,
+                                                                                                 batch_size=32)
