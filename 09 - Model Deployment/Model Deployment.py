@@ -114,3 +114,5 @@ train_dataloader_effnetb2, test_dataloader_effnetb2, class_names = data_setup.cr
                                                                                                  test_dir=test_dir,
                                                                                                  transform=effnetb2_transforms,
                                                                                                  batch_size=32)
+
+len(train_dataloader_effnetb2), len(test_dataloader_effnetb2), class_names
