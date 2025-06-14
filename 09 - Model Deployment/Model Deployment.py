@@ -212,3 +212,6 @@ vit_results = engine.train(model=vit,
                            loss_fn=loss_fn,
                            epochs=10,
                            device=device)
+
+# Plot loss curves of the ViT feature extractor
+plot_loss_curves(vit_results)
