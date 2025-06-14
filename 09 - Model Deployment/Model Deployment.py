@@ -224,3 +224,9 @@ utils.save_model(model=vit,
 # Checking the size of the ViT feature extractor
 pretrained_vit_model_size = Path("models/09_pretrained_vit_feature_extractor_pizza_steak_sushi_20_percent.pth").stat().st_size / (1024 * 1024)
 print(f"Pretrained ViT feature extractor model size: {round(pretrained_vit_model_size, 2)}MB")
+
+# Collecting ViT feature extractor stats
+
+# Count number of parameters in Vit
+vit_total_params = sum(torch.numel(param) for param in vit.parameters())
+vit_total_params
