@@ -191,3 +191,10 @@ vit, vit_transforms = create_vit_model()
 #         col_names=["input_size", "output_size", "num_params", "trainable"],
 #         col_width=20,
 #         row_settings=["var_names"])
+
+# Create dataloaders for vit feature extractor
+train_dataloader_vit, test_dataloader_vit, class_names = data_setup.create_dataloaders(train_dir=train_dir,
+                                                                                       test_dir=test_dir,
+                                                                                       transform=vit_transforms,
+                                                                                       batch_size=32)
+len(train_dataloader_vit), len(test_dataloader_vit), class_names
