@@ -215,3 +215,8 @@ vit_results = engine.train(model=vit,
 
 # Plot loss curves of the ViT feature extractor
 plot_loss_curves(vit_results)
+
+# Saving ViT feature extractor
+utils.save_model(model=vit,
+                 target_dir="models",
+                 model_name="09_pretrained_vit_feature_extractor_pizza_steak_sushi_20_percent.pth")
