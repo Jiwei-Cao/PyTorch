@@ -151,3 +151,11 @@ print(f"Pretrained EffNetB2 feature extractor model size: {round(pretrained_effn
 # Count number of parameters in EffNetB2
 effnetb2_total_params = sum(torch.numel(param) for param in effnetb2.parameters())
 effnetb2_total_params
+
+# Create a dictionary with EffNetB2 statistics
+effnetb2_stats = {"test_loss": effnetb2_results["test_loss"][-1],
+                  "test_acc": effnetb2_results["test_acc"][-1],
+                  "number_of_parameters": effnetb2_total_params,
+                  "model_size (MB)": pretrained_effnetb2_model_size}
+
+effnetb2_stats
