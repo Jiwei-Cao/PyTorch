@@ -163,3 +163,23 @@ effnetb2_stats
 # Creating a ViT feature extractor
 vit = torchvision.models.vit_b_16()
 vit.heads
+
+# Creating a function to make a ViT feature extractor
+def create_vit_model(num_classes:int=3,
+                     seed:int=42):
+  # Create a ViT_B_16 pretrained weights, transforms and model
+  weights = torchvision.models.ViT_B_16_Weights.DEFAULT
+  transforms = weights.transforms()
+  model = torchvision.models.vit_b_16(weights=weights)
+
+  # Freeze all of the base layers
+  for param in model.parameters():
+    param.requires_grad = False
+
+  # Change the classifier head
+  torch.manual_seed(seed)
+  model.heads = nn.Sequential(
+      nn.Linear(in_features=768, out_features=num_classes)
+  )
+
+  return model, transforms
