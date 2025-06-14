@@ -97,3 +97,6 @@ def create_effnetb2_model(num_classes:int=3,
   )
 
   return model, transform
+
+effnetb2, effnetb2_transforms = create_effnetb2_model(num_classes=3,
+                                                      seed=42)
