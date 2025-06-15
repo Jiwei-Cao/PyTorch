@@ -303,3 +303,10 @@ def pred_and_store(paths: List[pathlib.Path],
     pred_list.append(pred_dict)
 
   return pred_list
+
+# Making and timing predictions with EffNetB2
+effnetb2_test_pred_dicts = pred_and_store(paths=test_data_paths,
+                                          model=effnetb2,
+                                          transform=effnetb2_transforms,
+                                          class_names=class_names,
+                                          device="cpu")
