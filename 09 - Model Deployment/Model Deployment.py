@@ -324,3 +324,7 @@ effnetb2_test_pred_df.correct.value_counts()
 # Find the average time per prediction
 effnetb2_average_time_per_pred = round(effnetb2_test_pred_df.time_for_pred.mean(), 4)
 print(f"EffNetB2 average time per prediction: {effnetb2_average_time_per_pred}")
+
+# Add time per prediction to EffNetB2 stats dictionary
+effnetb2_stats["time_per_pred_cpu"] = float(effnetb2_average_time_per_pred)
+effnetb2_stats
