@@ -328,3 +328,10 @@ print(f"EffNetB2 average time per prediction: {effnetb2_average_time_per_pred}")
 # Add time per prediction to EffNetB2 stats dictionary
 effnetb2_stats["time_per_pred_cpu"] = float(effnetb2_average_time_per_pred)
 effnetb2_stats
+
+# Making and timing predictions with ViT
+vit_test_pred_dicts = pred_and_store(paths=test_data_paths,
+                                     model=vit,
+                                     transform=vit_transforms,
+                                     class_names=class_names,
+                                     device="cpu")
