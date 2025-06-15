@@ -237,3 +237,9 @@ vit_stats = {"test_loss": vit_results["test_loss"][-1],
              "number_of_parameters": vit_total_params,
              "model_size (MB)": pretrained_vit_model_size}
 vit_stats
+
+# Making predictions with the trained models and timing them
+
+# Get all test data paths
+test_data_paths = list(Path(test_dir).glob("*/*.jpg"))
+test_data_paths[:5]
