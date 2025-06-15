@@ -312,3 +312,8 @@ effnetb2_test_pred_dicts = pred_and_store(paths=test_data_paths,
                                           device="cpu")
 
 effnetb2_test_pred_dicts
+
+# Turn the test_pred_dicts into a dataframe
+import pandas as pd
+effnetb2_test_pred_df = pd.DataFrame(effnetb2_test_pred_dicts)
+effnetb2_test_pred_df.head()
