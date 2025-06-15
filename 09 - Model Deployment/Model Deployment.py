@@ -351,3 +351,16 @@ print(f"ViT average time per prediction: {vit_average_time_per_pred}")
 # Add average time per prediction to ViT stats
 vit_stats["time_per_pred_cpu"] = float(vit_average_time_per_pred)
 vit_stats
+
+# Comparing model results, prediction times and size
+
+# Turn stat dictionaries into DataFrame
+df = pd.DataFrame([effnetb2_stats, vit_stats])
+
+# Add column for model names
+df["model"] = ["EffNetB2", "ViT"]
+
+# Convert accuracy to percentages
+df["test_acc"] = round(df["test_acc"] * 100, 2)
+
+df
