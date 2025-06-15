@@ -347,3 +347,7 @@ vit_test_pred_df.correct.value_counts()
 # Calculate average time per prediction for ViT model
 vit_average_time_per_pred = round(vit_test_pred_df.time_for_pred.mean(), 4)
 print(f"ViT average time per prediction: {vit_average_time_per_pred}")
+
+# Add average time per prediction to ViT stats
+vit_stats["time_per_pred_cpu"] = float(vit_average_time_per_pred)
+vit_stats
