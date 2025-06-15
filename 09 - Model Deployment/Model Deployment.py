@@ -310,3 +310,5 @@ effnetb2_test_pred_dicts = pred_and_store(paths=test_data_paths,
                                           transform=effnetb2_transforms,
                                           class_names=class_names,
                                           device="cpu")
+
+effnetb2_test_pred_dicts
