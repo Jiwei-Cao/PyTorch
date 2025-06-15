@@ -317,3 +317,6 @@ effnetb2_test_pred_dicts
 import pandas as pd
 effnetb2_test_pred_df = pd.DataFrame(effnetb2_test_pred_dicts)
 effnetb2_test_pred_df.head()
+
+# Check number of correct predictions
+effnetb2_test_pred_df.correct.value_counts()
