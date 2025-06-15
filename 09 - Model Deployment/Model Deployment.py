@@ -368,3 +368,37 @@ df
 # Compare ViT to EffNetB2 across different characteristics
 pd.DataFrame(data=(df.set_index("model").loc["ViT"]) / df.set_index("model").loc["EffNetB2"],
              columns=["ViT to EffNetB2 ratios"]).T
+
+# Visualising the speed vs performance tradeoff
+
+# Create a plot from model comparison DataFrame
+fig, ax = plt.subplots(figsize=(12, 8))
+scatter = ax.scatter(data=df,
+                     x="time_per_pred_cpu",
+                     y="test_acc",
+                     c=["blue", "orange"],
+                     s="model_size (MB)")
+
+# Add titles and labels 
+ax.set_title("FoodVision Mini Inference Speed vs Performance", fontsize=18)
+ax.set_xlabel("Prediction time per image (seconds)", fontsize=14)
+ax.set_ylabel("Test_accuracy (%)", fontsize=14)
+ax.tick_params(axis="both", labelsize=12)
+ax.grid(True)
+
+# Annotate the samples on the scatter plot 
+for index, row in df.iterrows():
+  ax.annotate(text=row["model"],
+              xy=(row["time_per_pred_cpu"]+0.0006, row["test_acc"]+0.03),
+              size=12)
+  
+# Create a legend based on the model sizes 
+handles, labels = scatter.legend_elements(prop="sizes", alpha=0.5)
+model_size_legend = ax.legend(handles,
+                              labels,
+                              loc="lower right",
+                              title="Model size (MB)",
+                              fontsize=12)
+
+# Save the figure
+plt.savefig("09-foodvision-mini-inference-speed-vs-performance.png")
