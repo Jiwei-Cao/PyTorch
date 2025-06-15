@@ -340,3 +340,6 @@ vit_test_pred_dicts
 
 vit_test_pred_df = pd.DataFrame(vit_test_pred_dicts)
 vit_test_pred_df.head()
+
+# Check number of correct predictions
+vit_test_pred_df.correct.value_counts()
