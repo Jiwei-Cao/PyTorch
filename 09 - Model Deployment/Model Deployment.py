@@ -243,3 +243,63 @@ vit_stats
 # Get all test data paths
 test_data_paths = list(Path(test_dir).glob("*/*.jpg"))
 test_data_paths[:5]
+
+# Creating a function to make predictions across the test dataset
+import pathlib
+from PIL import Image
+from timeit import default_timer as timer
+from tqdm.auto import tqdm
+from typing import List, Dict
+
+def pred_and_store(paths: List[pathlib.Path],
+                   model: torch.nn.Module,
+                   transform: torchvision.transforms,
+                   class_names: List[str],
+                   device: str = "cuda" if torch.cuda.is_available() else "cpu") -> List[Dict]:
+  # Create an empty list
+  pred_list = []
+
+  # Loop through the target input paths
+  for path in tqdm(paths):
+    # Create an empty dictionary
+    pred_dict = {}
+
+    # Get the sample path and ground truth class from the filepath
+    pred_dict["image_path"] = path
+    class_name = path.parent.stem
+    pred_dict["class_name"] = class_name
+
+    # Start the prediction timer
+    start_time = timer()
+
+    # Open the image using Image.open(path)
+    img = Image.open(path)
+
+    # Transform the image to be usable with a given model
+    transformed_image = transform(img).unsqueeze(0).to(device)
+
+    # Prepare the model for inference by sending to the target device
+    model = model.to(device)
+    model.eval()
+
+    # Calculate prediction probabilities and prediction class
+    pred_logit = model(transformed_image)
+    pred_prob = torch.softmax(pred_logit, dim=1)
+    pred_label = torch.argmax(pred_prob, dim=1)
+    pred_class = class_names[pred_label.cpu()]
+
+    # Add the prediction probability and prediction class to empty dictionary 
+    pred_dict["pred_prob"] = round(pred_prob.unsqueeze(0).max().cpu().item(), 4)
+    pred_dict["pred_class"] = pred_class
+
+    # End the prediction timer and add the time to the prediction dictionary
+    end_time = timer()
+    pred_dict["time_for_pred"] = round(end_time-start_time, 4)
+
+    # See if the predicted class matches the ground truth class
+    pred_dict["correct"] = class_name == pred_class
+
+    # Append the updated prediction dictionary to the empty list of predictions
+    pred_list.append(pred_dict)
+
+  return pred_list
