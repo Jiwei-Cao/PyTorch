@@ -343,3 +343,7 @@ vit_test_pred_df.head()
 
 # Check number of correct predictions
 vit_test_pred_df.correct.value_counts()
+
+# Calculate average time per prediction for ViT model
+vit_average_time_per_pred = round(vit_test_pred_df.time_for_pred.mean(), 4)
+print(f"ViT average time per prediction: {vit_average_time_per_pred}")
