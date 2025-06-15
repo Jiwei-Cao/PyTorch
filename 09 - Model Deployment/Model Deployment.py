@@ -364,3 +364,7 @@ df["model"] = ["EffNetB2", "ViT"]
 df["test_acc"] = round(df["test_acc"] * 100, 2)
 
 df
+
+# Compare ViT to EffNetB2 across different characteristics
+pd.DataFrame(data=(df.set_index("model").loc["ViT"]) / df.set_index("model").loc["EffNetB2"],
+             columns=["ViT to EffNetB2 ratios"]).T
